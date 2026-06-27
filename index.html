@@ -18,42 +18,41 @@
         .play-btn { background: transparent; border: 2px solid #66fcf1; color: #66fcf1; padding: 15px 40px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; cursor: pointer; border-radius: 50px; transition: all 0.4s ease; box-shadow: 0 0 15px rgba(102, 252, 241, 0.2); }
         .play-btn:hover { background: #66fcf1; color: #0b0c10; box-shadow: 0 0 25px rgba(102, 252, 241, 0.6); transform: scale(1.05); }
         
-        /* 1. SENİN FİKRİN: EKRANIN ARKASINDA SABİT/ÇAKILI DURAN DEV SLIDER ALANI */
+        /* EN ARKADA SIFIR KARARTMAYLA ÇAKILI DURAN PARLAK ALBÜM DUVARI */
         .fixed-bg-slider { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; overflow: hidden; background-color: #000; }
         .hero-slider-img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1s ease-in-out; }
         .hero-slider-img.active { opacity: 1; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.45); z-index: 2; }
         
-        /* SAYFA İÇERİKLERİNİ TAŞIYAN ANA SCROLL YAPISI */
+        /* ÜSTTE BAĞIMSIZCA KAYAN İÇERİK YAPISI */
         .scrollable-content { position: relative; z-index: 5; width: 100%; }
         
-        /* İLK EKRAN (HERO METİNLERİ ARKA PLANIN ÜSTÜNDE DÜZGÜNCE DURUR) */
-        .hero-section { height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; text-align: center; pointer-events: none; }
-        .hero-content { max-width: 850px; padding: 20px; pointer-events: auto; }
-        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #fff; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 3px 3px 12px rgba(0,0,0,1); }
-        .hero-content p { font-size: 1.25rem; line-height: 1.8; color: #fff; font-weight: bold; margin-bottom: 25px; text-shadow: 2px 2px 10px rgba(0,0,0,1); }
+        /* FOTOĞRAFLARI KESİNTİSİZ GÖSTEREN TERTEMİZ İLK EKRAN */
+        .viewport-spacer { height: 100vh; width: 100%; pointer-events: none; }
         
-        .scroll-to-register { display: inline-block; background: #66fcf1; color: #0b0c10; padding: 12px 30px; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 30px; letter-spacing: 1px; margin-bottom: 25px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .scroll-to-register:hover { background: #45e3db; transform: translateY(-2px); }
-        .badge-container { margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .badge { background: rgba(0, 0, 0, 0.85); border: 2px solid #66fcf1; padding: 8px 20px; border-radius: 20px; font-size: 0.9rem; color: #66fcf1; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        /* KAYDIRINCA PANELİN İÇİNDE GELEN YENİ KARŞILAMA KARTI */
+        .welcome-card { background: linear-gradient(135deg, #1f2833 0%, #151a22 100%); border-radius: 15px; padding: 40px 30px; text-align: center; margin-bottom: 40px; border: 1px solid rgba(102,252,241,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .welcome-card h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #fff; margin-bottom: 1.5rem; font-weight: 700; }
+        .welcome-card p { font-size: 1.2rem; line-height: 1.8; color: #e5e7eb; margin-bottom: 25px; font-weight: 300; }
         
-        /* 2. SENİN FİKRİN: KAYDIRDIKÇA FOTOĞRAFIN ÜZERİNE ÇIKAN KOYU RENKLİ PANEL */
+        .badge-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 15px; }
+        .badge { background: rgba(11, 12, 16, 0.8); border: 1px solid #66fcf1; padding: 8px 18px; border-radius: 20px; font-size: 0.85rem; color: #66fcf1; font-weight: bold; }
+        
+        /* İÇERİK PANELİ */
         .content-section { width: 100%; background-color: #0b0c10; padding: 60px 20px; position: relative; }
         .content-container { max-width: 1200px; margin: 0 auto; }
         
         .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
-        @media (max-width: 900px) { .grid-container { grid-template-columns: 1fr; } .hero-content h1 { font-size: 2.2rem; } }
+        @media (max-width: 900px) { .grid-container { grid-template-columns: 1fr; } .welcome-card h1 { font-size: 2rem; } }
         
         .card { background: #1f2833; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(102,252,241,0.1); }
         .card h2 { font-family: 'Playfair Display', serif; color: #fff; margin-bottom: 1.5rem; border-bottom: 2px solid #66fcf1; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
         .info-item { margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6; }
         .info-item strong { color: #66fcf1; }
         
-        /* NOKTA ATIŞI TAM HARİTA */
+        /* HARİTA */
         .map-placeholder { width: 100%; height: 340px; border-radius: 10px; overflow: hidden; margin-top: 20px; border: 2px solid #66fcf1; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: block; }
         
-        /* FORM UNSURLARI */
+        /* FORM */
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; color: #66fcf1; font-size: 0.9rem; }
         .form-control { width: 100%; padding: 12px; background: #0b0c10; border: 1px solid #45f3ff; border-radius: 8px; color: #fff; font-family: inherit; }
@@ -67,9 +66,7 @@
         .dj-main-booth { margin-bottom: 40px; background: linear-gradient(145deg, #151a22 0%, #0b0c10 100%); border: 3px double #66fcf1; border-radius: 20px; padding: 35px 25px; text-align: center; box-shadow: 0 0 25px rgba(102,252,241,0.2); position: relative; display: block; width: 100%; }
         .dj-main-booth::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #ff4a9f, #66fcf1, #ff4a9f); }
         
-        /* GARANTİLİ STATİK MATRİSLİ DJ FOTOĞRAFI */
         .dj-photo-large { width: 160px !important; height: 160px !important; display: block !important; margin: 0 auto 15px auto !important; border-radius: 50% !important; border: 3px solid #66fcf1 !important; object-fit: cover !important; box-shadow: 0 0 20px rgba(102,252,241,0.5); background-color: #000; }
-        
         .dj-badge { background: #ff4a9f; color: #fff; font-size: 0.75rem; padding: 4px 12px; border-radius: 50px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; display: inline-block; margin-bottom: 10px; }
         .dj-name-large { font-family: 'Playfair Display', serif; font-size: 2rem; color: #fff; font-weight: 900; letter-spacing: 1px; margin-bottom: 10px; }
         .dj-details { font-size: 0.95rem; color: #aaabb8; line-height: 1.6; max-width: 480px; margin: 0 auto 15px auto; font-weight: 300; }
@@ -87,41 +84,39 @@
         <button class="play-btn" onclick="startParty()">Müziği Aç & Giriş Yap</button>
     </div>
 
-    <!-- EN ARKADA SÜREKLİ ÇAKILI VE SABİT KALAN GÖRSEL DUVARI -->
+    <!-- EN ARKADA SIFIR KARARTMAYLA DÖNEN PARLAK GÖRSEL ALBÜMÜ -->
     <div class="fixed-bg-slider">
         <img src="1.jpg" class="hero-slider-img active" alt="Slayt 1">
         <img src="2.jpg" class="hero-slider-img" alt="Slayt 2">
         <img src="3.jpg" class="hero-slider-img" alt="Slayt 3">
         <img src="4.jpg" class="hero-slider-img" alt="Slayt 4">
         <img src="5.jpg" class="hero-slider-img" alt="Slayt 5">
-        <div class="hero-overlay"></div>
     </div>
 
-    <!-- ÜSTTE BAĞIMSIZCA AŞAĞI YUKARI SCROLL EDEN SAYFA YAPISI -->
+    <!-- ÜSTTEN AKAN İÇERİK KATMANI -->
     <div class="scrollable-content">
         
-        <!-- İLK KARŞILAMA BLOKU -->
-        <div class="hero-section">
-            <div class="hero-content">
-                <h1>İster Rahat Ol İster Şık!</h1>
-                <p>Rahat olun gelin de çok kasmayacak... 🕺✨ Soft içecekler, kuruyemiş, müzik ve mekan bizden; gecenin muhabbeti sizden. Alkol tüketmek isteyen misafirlerimizin kendi içkisini getirmesi rica olunur (BYOB).</p>
-                <a href="#kayit-alani" class="scroll-to-register">👇 Aşağı Kaydır ve Yerini Ayırt!</a>
-                <div class="badge-container">
-                    <div class="badge">🥤 Soft İçecekler & Kuruyemiş Bizden</div>
-                    <div class="badge">🍷 Alkolünü Kendin Getir (BYOB)</div>
-                    <div class="badge">👠 Topuklu Zor Olabilir, Dikkat Kızlar!</div>
-                </div>
-            </div>
-        </div>
+        <!-- İLK EKRAN: SADECE GÖRSELLERİ SEYRETTİREN BOŞ ALAN -->
+        <div class="viewport-spacer"></div>
 
-        <!-- KAYDIRINCA RESMİN ÜZERİNE ÇIKAN SİYAH İÇERİK BÖLÜMÜ -->
+        <!-- AŞAĞI KAYDIRINCA BAŞLAYAN PANEL -->
         <div class="content-section" id="kayit-alani">
             <div class="content-container">
                 
+                <!-- YENİ YERE ALINAN NET KARŞILAMA BLOKU -->
+                <div class="welcome-card">
+                    <h1>İster Rahat Ol İster Şık!</h1>
+                    <p>Rahat olun gelin de çok kasmayacak... 🕺✨ Soft içecekler, kuruyemiş, müzik ve mekan bizden; gecenin muhabbeti sizden. Alkol tüketmek isteyen misafirlerimizin kendi içkisini getirmesi rica olunur (BYOB).</p>
+                    <div class="badge-container">
+                        <div class="badge">🥤 Soft İçecekler & Kuruyemiş Bizden</div>
+                        <div class="badge">🍷 Alkolünü Kendin Getir (BYOB)</div>
+                        <div class="badge">👠 Topuklu Zor Olabilir, Dikkat Kızlar!</div>
+                    </div>
+                </div>
+
                 <!-- DJ ALANI -->
                 <div class="dj-main-booth">
                     <img id="dj-avatar" src="dj.jpg" alt="DJ Merve" class="dj-photo-large">
-                    <br>
                     <div class="dj-badge">🔥 Gecenin Main Line-Up Girişi</div>
                     <h2 class="dj-name-large">🎧 DJ MERVE ON THE MIX</h2>
                     <p class="dj-details">Yabancı, Techno ve Deep House tarzı setler tamamen ondan sorulur! (Gecenin ilerleyen saatlerinde Oynama Havaları x Türkçe Pop tabikisi var, kasmayın diyoruz cınım.)</p>
@@ -140,7 +135,6 @@
                                 ⚠️ Akşamları buralar güzel eser, soğuk olur unutma! Mekan açık/bahçe konseptli olduğu için topuklu ayakkabı zor olabilir, dikkat kızlarrr! Yanınıza mutlaka hırka veya mont alın.
                             </div>
                         </div>
-                        <!-- VERDİĞİN TAM VE NET NOKTA ATIŞI HARİTA ENTEGRASYONU -->
                         <iframe class="map-placeholder" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1529.2831828350125!2d30.4191259!3d39.7838099!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ3JzAxLjciTiAzMMKwMjUnMDguOSJF!5e0!3m2!1str!2str!4v1719525000000!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
@@ -181,10 +175,10 @@
         var audio = document.getElementById('party-audio');
         var musicStarted = false;
 
-        // DJ RESMİNİN ÖNBELLEKTE KALMASINI ÖNLEYEN SİSTEM
+        // DJ RESMİNİ TAZELENMİŞ OLARAK ÇEKEN MOTOR
         document.getElementById('dj-avatar').src = "dj.jpg?v=" + new Date().getTime();
 
-        // ARKA PLANDA ÇAKILI SLIDER'IN MOTORU
+        // SLIDER MOTORU
         var slides = document.querySelectorAll('.hero-slider-img');
         var currentSlide = 0;
         
