@@ -310,9 +310,9 @@
 </head>
 <body>
 
-    <!-- SENİN YÜKLEDİĞİN DRIVE MP3 DOSYASININ DOĞRUDAN AKIŞ ALTYAPISI -->
+    <!-- GITHUB'A KENDİ YÜKLEDİĞİN EN YÜKSEK ENERJİLİ MP3 ALTYAPISI -->
     <audio id="party-audio" loop preload="auto">
-        <source src="https://docs.google.com/uc?export=open&id=1_ccDetMyvd6KvPBYugsw4mT-zPjzFs1h" type="audio/mpeg">
+        <source src="1.mp3" type="audio/mpeg">
     </audio>
 
     <!-- 1. EKRAN: GİRİŞ KAPISI -->
@@ -406,9 +406,9 @@
     <script>
         function startParty() {
             var audio = document.getElementById('party-audio');
-            // Drive dosyasını oynatmayı tetikle
+            // Kendi sunucundan yüklenen MP3'ü kusursuz oynatır
             audio.play().catch(function(error) {
-                console.log("Tarayıcı engeli tetiklendi, alternatif oynatma aranıyor.");
+                console.log("Müzik tetiklenemedi:", error);
             });
             document.getElementById('intro-overlay').classList.add('fade-out');
         }
