@@ -2,25 +2,36 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE PARTY</title>
+    <style>
+        body { background: #0b0c10; color: #fff; font-family: sans-serif; text-align: center; padding: 20px; }
+        .dj-booth { background: #1f2833; padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px solid #66fcf1; }
+        .play-btn { background: #66fcf1; color: #000; padding: 15px 30px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; }
+    </style>
 </head>
-<body style="background:#000; color:#fff; display:flex; justify-content:center; align-items:center; height:100vh; flex-direction:column;">
-    
-    <h1>PARTİ YÜKLENİYOR...</h1>
-    
+<body>
+
     <audio id="audio" loop>
         <source src="1.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="btn" style="padding:20px; font-size:20px;">GİRİŞ YAP</button>
+    <h1>THE PARTY</h1>
+    <button class="play-btn" onclick="baslat()">MÜZİĞİ AÇ VE GİRİŞ YAP</button>
+
+    <div class="dj-booth">
+        <h2>🎧 DJ MERVE ON THE MIX</h2>
+        <p>Techno, Deep House & Oynama Havaları</p>
+        <p><em>"Techno and tequila, I can't even see ya cınım💅"</em></p>
+    </div>
 
     <script>
-        document.getElementById('btn').onclick = function() {
+        function baslat() {
             var a = document.getElementById('audio');
             a.currentTime = 16;
             a.play();
-            alert("Müzik başladı, kod çalışıyor kanka!");
-        };
+            alert("Müzik başladı, tasarım da çalışıyor!");
+        }
     </script>
 </body>
 </html>
