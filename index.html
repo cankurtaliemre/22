@@ -3,88 +3,540 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE PARTY</title>
+    <title>THE PARTY - BYOB</title>
+    <!-- Google Fonts entegrasyonu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;700;900&family=Playfair+Display:ital,wght=0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        body { margin: 0; background: #0b0c10; color: #fff; font-family: sans-serif; text-align: center; }
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80'); background-size: cover; }
-        .dj-booth { background: #1f2833; padding: 20px; border-radius: 15px; margin: 20px auto; border: 1px solid #66fcf1; max-width: 400px; }
-        .play-btn { background: #66fcf1; color: #000; padding: 15px 30px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
-        .form-container { background: #1f2833; padding: 20px; border-radius: 15px; margin: 20px auto; max-width: 400px; border: 1px solid #45f3ff; }
-        input, select, button { width: 90%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; box-sizing: border-box; }
-        input, select { background: #0b0c10; color: #fff; border: 1px solid #66fcf1; }
-        .submit-btn { background: #66fcf1; color: #000; font-weight: bold; cursor: pointer; }
+        /* GENEL AYARLAR */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0b0c10;
+            color: #c5c6c7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* 1. EKRAN: GİRİŞ / INTRO */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            padding: 20px;
+        }
+        #intro-overlay.fade-out {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .intro-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #fff;
+            letter-spacing: 5px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            text-align: center;
+        }
+        .play-btn {
+            background: transparent;
+            border: 2px solid #66fcf1;
+            color: #66fcf1;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.2);
+        }
+        .play-btn:hover {
+            background: #66fcf1;
+            color: #0b0c10;
+            box-shadow: 0 0 25px rgba(102, 252, 241, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* 2. EKRAN: HERO / AKAN FOTOĞRAFLAR */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .slideshow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1);
+            animation: imageAnimation 24s linear infinite;
+            backface-visibility: hidden;
+        }
+        /* GEÇİCİ ARKA PLAN FOTOĞRAFLARI (Linkleri atınca burayı güncellersin kanka) */
+        .slide:nth-child(1) { 
+            background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80'); 
+            animation-delay: 0s;
+        }
+        .slide:nth-child(2) { 
+            background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1920&q=80'); 
+            animation-delay: 6s;
+        }
+        .slide:nth-child(3) { 
+            background-image: url('https://images.unsplash.com/photo-1505232458627-a727264d7662?auto=format&fit=crop&w=1920&q=80'); 
+            animation-delay: 12s;
+        }
+        .slide:nth-child(4) { 
+            background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1920&q=80'); 
+            animation-delay: 18s;
+        }
+
+        @keyframes imageAnimation { 
+            0% { opacity: 0; animation-timing-function: ease-in; }
+            8% { opacity: 1; transform: scale(1.05) translateX(10px); animation-timing-function: ease-out; }
+            25% { opacity: 1; transform: scale(1.1) translateX(-10px); }
+            33% { opacity: 0; transform: scale(1.15); }
+            100% { opacity: 0 }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 850px;
+            padding: 20px;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        .hero-content p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #e5e7eb;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+        
+        .scroll-to-register {
+            display: inline-block;
+            background: #66fcf1;
+            color: #0b0c10;
+            padding: 12px 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 30px;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+        .scroll-to-register:hover {
+            background: #45e3db;
+            transform: translateY(-2px);
+        }
+
+        .badge-container {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .badge {
+            background: rgba(102, 252, 241, 0.1);
+            border: 1px solid rgba(102, 252, 241, 0.4);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #66fcf1;
+            font-weight: bold;
+        }
+
+        /* 3. EKRAN: DETAYLAR VE FORMLAR */
+        .content-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.2rem; }
+        }
+
+        .card {
+            background: #1f2833;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #66fcf1;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-item {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .info-item strong {
+            color: #66fcf1;
+        }
+        .map-placeholder {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            border: none;
+        }
+
+        /* Form Stilleri */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #66fcf1;
+            font-size: 0.9rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background: #0b0c10;
+            border: 1px solid #45f3ff;
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #66fcf1;
+            box-shadow: 0 0 10px rgba(102,252,241,0.3);
+        }
+        .btn-submit {
+            width: 100%;
+            background: #66fcf1;
+            color: #0b0c10;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        .btn-submit:hover {
+            background: #45e3db;
+            box-shadow: 0 0 15px rgba(102,252,241,0.4);
+        }
+        .btn-decline {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #ff4a4a;
+            color: #ff4a4a;
+            padding: 10px;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-decline:hover {
+            background: #ff4a4a;
+            color: #fff;
+        }
+
+        /* DJ MERVE KABİN ALANI */
+        .dj-booth {
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #0f1016 0%, #1a1c24 100%);
+            border: 1px dashed #66fcf1;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: inset 0 0 15px rgba(102,252,241,0.1);
+        }
+        .dj-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #66fcf1;
+            margin: 0 auto 10px auto;
+            background-size: cover;
+            background-position: center;
+            background-image: url('https://images.unsplash.com/photo-1574169208507-84376144848b?auto=format&fit=crop&w=150&q=80');
+        }
+        .dj-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #66fcf1;
+            margin-bottom: 5px;
+            font-weight: 900;
+        }
+        .dj-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .dj-genres {
+            font-size: 0.85rem;
+            color: #aaabb8;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .dj-quote {
+            font-size: 0.85rem;
+            color: #ff4a9f;
+            font-weight: bold;
+            font-family: monospace;
+            background: rgba(255, 74, 159, 0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
 
-    <audio id="audio" loop>
+    <!-- GITHUB'A EKLEDİĞİN MP3 DOSYASI -->
+    <audio id="party-audio" loop preload="auto">
         <source src="1.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="hero">
-        <h1>THE PARTY</h1>
-        <button class="play-btn" onclick="baslat()">GİRİŞ YAP</button>
+    <!-- 1. EKRAN: GİRİŞ KAPISI -->
+    <div id="intro-overlay">
+        <h1 class="intro-title">THE PARTY</h1>
+        <button class="play-btn" onclick="startParty()">Müziği Aç & Giriş Yap</button>
     </div>
 
-    <div class="dj-booth">
-        <h2>🎧 DJ MERVE ON THE MIX</h2>
-        <p>Techno, Deep House & Oynama Havaları</p>
-        <p><em>"Techno and tequila, I can't even see ya cınım💅"</em></p>
+    <!-- 2. EKRAN: SİNEMATİK AKAN FOTOĞRAFLAR VE KONSEPT -->
+    <div class="hero-section">
+        <div class="slideshow">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>İster Rahat Ol İster Şık!</h1>
+            <p>Rahat olun gelin de çok kasmayacak... 🕺✨ Soft içecekler, kuruyemiş, müzik ve mekan bizden; gecenin muhabbeti sizden. Alkol tüketmek isteyen misafirlerimizin kendi içkisini getirmesi rica olunur (BYOB).</p>
+            
+            <a href="#kayit-alani" class="scroll-to-register">👇 Aşağı Kaydır ve Yerini Ayırt!</a>
+
+            <div class="badge-container">
+                <div class="badge">🥤 Soft İçecekler & Kuruyemiş Bizden</div>
+                <div class="badge">🍷 Alkolünü Kendin Getir (BYOB)</div>
+                <div class="badge">👠 Topuklu Zor Olabilir, Dikkat Kızlar!</div>
+            </div>
+        </div>
     </div>
 
-    <div class="form-container">
-        <h2>📝 Geliyor musun?</h2>
-        <form id="rsvp-form" onsubmit="tabloyaGonder(event)">
-            <input type="text" name="guest_name" placeholder="Adın Soyadın" required>
-            <select name="guest_count">
-                <option value="1">1 Kişi (Yalnız Kurt)</option>
-                <option value="2">2 Kişi</option>
-                <option value="3">3 Kişi</option>
-                <option value="4">4+ Kişi</option>
-            </select>
-            <input type="text" name="guest_note" placeholder="Eklemek istediğin not (İsteğe bağlı)">
-            <button type="submit" id="submit-btn" class="submit-btn">KAYDET VE YERİNİ AYIRT</button>
-        </form>
+    <!-- 3. EKRAN: DETAYLAR VE HARİTA & FORMLAR -->
+    <div class="content-section" id="kayit-alani">
+        <div class="grid-container">
+            
+            <!-- SOL KART: BİLGİ & GOOGLE MAPS -->
+            <div class="card">
+                <div>
+                    <h2>📍 Ne Zaman? Nerede?</h2>
+                    <div class="info-item">
+                        📅 <strong>Tarih:</strong> 12 Eylül 2026, Cumartesi
+                    </div>
+                    <div class="info-item">
+                        ⏰ <strong>Saat:</strong> 20:00 İtibariyle
+                    </div>
+                    <div class="info-item">
+                        🏡 <strong>Mekan:</strong> Parti Evi / Bahçe Alanı
+                    </div>
+                    <div class="info-item" style="color: #ffc107; font-weight: bold; background: rgba(255,193,7,0.1); padding: 15px; border-radius: 8px;">
+                        ⚠️ Burası akşamları eser, soğuk olur unutma! Mekan bahçede olduğu için topuklu ayakkabı zor olabilir, dikkat kızlarrr! Yanınıza hırka veya mont almayı ihmal etmeyin.
+                    </div>
+                </div>
+
+                <iframe class="map-placeholder" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d196123.7123405!2d30.5225!3d39.7767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cc3e08479e0a21%3A0x400a45d064cf670!2sEski%C5%9fehir!5e0!3m2!1str!2str!4v1719520000000!5m2!1str!2str" 
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <!-- SAĞ KART: DJ KABİNİ VE HEMEN ALTINDA RSVP FORMU -->
+            <div class="card">
+                <div>
+                    <!-- DJ KABİNİ -->
+                    <div class="dj-booth">
+                        <div class="dj-photo"></div>
+                        <div class="dj-title">🔥 KANKALARIN EN CAFCAFLISI, EN BURNU HAVADASI 🤓</div>
+                        <div class="dj-name">🎧 DJ MERVE ON THE MIX</div>
+                        <div class="dj-genres">Yabancı, Techno ve Deep House tarzı müziklerden ondan sorulur! (Gecenin ilerleyen saatlerinde Oynama Havaları x Türkçe Pop tabikisi var kasmayın)</div>
+                        <div class="dj-quote">"Techno and tequila, I can't even see ya cınım💅"</div>
+                    </div>
+
+                    <h2>📝 Geliyor musun?</h2>
+                    <form id="rsvp-form" onsubmit="handleRSVP(event)">
+                        <div class="form-group">
+                            <label for="guest-name">Adın Soyadın</label>
+                            <input type="text" id="guest-name" name="guest_name" class="form-control" placeholder="Örn. Ahmet Yılmaz" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guest-count">Kaç Kişi Geleceksiniz? (Kendin Dahil)</label>
+                            <select id="guest-count" name="guest_count" class="form-control">
+                                <option value="1">1 Kişi (Yalnız Kurt)</option>
+                                <option value="2">2 Kişi</option>
+                                <option value="3">3 Kişi</option>
+                                <option value="4">4+ Kişi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="guest-note">Eklemek İstediğin Not (İsteğe Bağlı)</label>
+                            <input type="text" id="guest-note" name="guest_note" class="form-control" placeholder="Örn. Hırkam ve biralarım hazır!">
+                        </div>
+                        
+                        <button type="submit" id="submit-btn" class="btn-submit">👍 Aynen Kanka, Geliyorum!</button>
+                        <button type="button" class="btn-decline" onclick="handleDecline()">👎 Maalesef Gelemiyorum</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
     </div>
 
+    <!-- JAVASCRIPT -->
     <script>
-        function baslat() {
-            var a = document.getElementById('audio');
-            a.currentTime = 16;
-            a.play();
-            alert("Müzik başladı!");
+        var audio = document.getElementById('party-audio');
+        var musicStarted = false;
+
+        function startParty() {
+            // ŞARKININ BAŞLAYACAĞI SANİYE (Tam 0:16 saniyesinden girer)
+            audio.currentTime = 16; 
+            
+            audio.play().then(function() {
+                musicStarted = true;
+            }).catch(function(error) {
+                console.log("Müzik engellendi:", error);
+            });
+            document.getElementById('intro-overlay').classList.add('fade-out');
         }
 
-        function tabloyaGonder(event) {
+        /* AKILLI TARAYICI/SEKME TAKİBİ */
+        document.addEventListener("visibilitychange", function() {
+            if (musicStarted) {
+                if (document.hidden) {
+                    audio.pause();
+                } else {
+                    audio.play().catch(function(e){});
+                }
+            }
+        });
+
+        /* GOOGLE SHEETS GERÇEK VERİ GÖNDERİM ALTYAPISI */
+        function handleRSVP(event) {
             event.preventDefault();
             const btn = document.getElementById('submit-btn');
             const form = document.getElementById('rsvp-form');
-            
+
             btn.disabled = true;
-            btn.innerText = "Gönderiliyor...";
+            btn.innerText = "Kaydediliyor...";
 
-            const url = "https://api.sheetmonkey.io/form/bTqSRNjyMEkLqFfBMTrPoj";
+            // ÇALIŞAN YENİ SHEET MONKEY API ADRESİN
+            const sheetMonkeyURL = "https://api.sheetmonkey.io/form/kcTSGCRgs48FAdqow7VQwb";
 
-            fetch(url, {
+            fetch(sheetMonkeyURL, {
                 method: "POST",
                 body: new FormData(form)
-            })
-            .then(response => {
+            }).then(response => {
                 if (response.ok) {
                     form.reset();
-                    alert("Harika! Bilgilerin e-tabloya başarıyla kaydedildi kanka! 🎉");
+                    alert(`Harika! Bilgilerin tıkır tıkır Excel tablosuna yazıldı kanka, hazırlıklı gel! 🎉`);
                 } else {
-                    alert("Yazma hatası oluştu, linki veya tablo izinlerini kontrol et kanka.");
+                    alert("Bir hata oluştu kanka, bağlantıyı kontrol et!");
                 }
-            })
-            .catch(error => {
+            }).catch(error => {
                 console.error("Hata:", error);
-                alert("Bağlantı hatası yaşandı!");
-            })
-            .finally(() => {
+                alert("Veritabanı bağlantı hatası!");
+            }).finally(() => {
                 btn.disabled = false;
-                btn.innerText = "KAYDET VE YERİNİ AYIRT";
+                btn.innerText = "👍 Aynen Kanka, Geliyorum!";
             });
+        }
+
+        function handleDecline() {
+            const name = document.getElementById('guest-name').value;
+            if(!name) {
+                alert("İsmini yaz kanka, kim gelemiyor görelim :)");
+                return;
+            }
+            document.getElementById('rsvp-form').reset();
+            alert("Sağlık olsun kanka, katılamayacağın not edildi. 🤝");
         }
     </script>
 </body>
