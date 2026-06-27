@@ -7,9 +7,12 @@
     <style>
         body { margin: 0; background: #0b0c10; color: #fff; font-family: sans-serif; text-align: center; }
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80'); background-size: cover; }
-        .dj-booth { background: #1f2833; padding: 20px; border-radius: 15px; margin: 20px; border: 1px solid #66fcf1; max-width: 400px; }
+        .dj-booth { background: #1f2833; padding: 20px; border-radius: 15px; margin: 20px auto; border: 1px solid #66fcf1; max-width: 400px; }
         .play-btn { background: #66fcf1; color: #000; padding: 15px 30px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
-        input, select, button { width: 90%; padding: 10px; margin: 5px; border-radius: 5px; border: none; }
+        .form-container { background: #1f2833; padding: 20px; border-radius: 15px; margin: 20px auto; max-width: 400px; border: 1px solid #45f3ff; }
+        input, select, button { width: 90%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; box-sizing: border-box; }
+        input, select { background: #0b0c10; color: #fff; border: 1px solid #66fcf1; }
+        .submit-btn { background: #66fcf1; color: #000; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -29,21 +32,59 @@
         <p><em>"Techno and tequila, I can't even see ya cınım💅"</em></p>
     </div>
 
-    <form id="rsvp-form" action="https://api.sheetmonkey.io/form/bTqSRNjyMEkLqFfBMTrPoj" method="POST">
-        <input type="text" name="Ad Soyad" placeholder="Adın Soyadın" required>
-        <select name="Kişi Sayısı">
-            <option value="1">1 Kişi</option>
-            <option value="2">2 Kişi</option>
-        </select>
-        <button type="submit" class="play-btn">KAYDET</button>
-    </form>
+    <div class="form-container">
+        <h2>📝 Geliyor musun?</h2>
+        <form id="rsvp-form" onsubmit="tabloyaGonder(event)">
+            <input type="text" name="guest_name" placeholder="Adın Soyadın" required>
+            <select name="guest_count">
+                <option value="1">1 Kişi (Yalnız Kurt)</option>
+                <option value="2">2 Kişi</option>
+                <option value="3">3 Kişi</option>
+                <option value="4">4+ Kişi</option>
+            </select>
+            <input type="text" name="guest_note" placeholder="Eklemek istediğin not (İsteğe bağlı)">
+            <button type="submit" id="submit-btn" class="submit-btn">KAYDET VE YERİNİ AYIRT</button>
+        </form>
+    </div>
 
     <script>
         function baslat() {
             var a = document.getElementById('audio');
             a.currentTime = 16;
             a.play();
-            alert("Müzik başladı, form veritabanına bağlı!");
+            alert("Müzik başladı!");
+        }
+
+        function tabloyaGonder(event) {
+            event.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const form = document.getElementById('rsvp-form');
+            
+            btn.disabled = true;
+            btn.innerText = "Gönderiliyor...";
+
+            const url = "https://api.sheetmonkey.io/form/bTqSRNjyMEkLqFfBMTrPoj";
+
+            fetch(url, {
+                method: "POST",
+                body: new FormData(form)
+            })
+            .then(response => {
+                if (response.ok) {
+                    form.reset();
+                    alert("Harika! Bilgilerin e-tabloya başarıyla kaydedildi kanka! 🎉");
+                } else {
+                    alert("Yazma hatası oluştu, linki veya tablo izinlerini kontrol et kanka.");
+                }
+            })
+            .catch(error => {
+                console.error("Hata:", error);
+                alert("Bağlantı hatası yaşandı!");
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerText = "KAYDET VE YERİNİ AYIRT";
+            });
         }
     </script>
 </body>
