@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE PARTY - BYOB</title>
+    <!-- Google Fonts entegrasyonu -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
@@ -38,6 +39,7 @@
             align-items: center;
             z-index: 9999;
             transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            padding: 20px;
         }
         #intro-overlay.fade-out {
             transform: translateY(-100%);
@@ -46,30 +48,49 @@
         }
         .intro-title {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: #fff;
             letter-spacing: 5px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
             text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            text-align: center;
         }
+        
+        /* MOBİL UYUMLU VİDEO KUTUSU */
+        .video-container {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 16/9;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(102, 252, 241, 0.3);
+            border: 1px solid rgba(102, 252, 241, 0.2);
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         .play-btn {
-            background: transparent;
-            border: 2px solid #66fcf1;
-            color: #66fcf1;
+            background: #66fcf1;
+            border: none;
+            color: #0b0c10;
             padding: 15px 40px;
             font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-weight: bold;
             cursor: pointer;
             border-radius: 50px;
             transition: all 0.4s ease;
-            box-shadow: 0 0 15px rgba(102, 252, 241, 0.2);
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.4);
         }
         .play-btn:hover {
-            background: #66fcf1;
-            color: #0b0c10;
-            box-shadow: 0 0 25px rgba(102, 252, 241, 0.6);
+            background: #45e3db;
+            box-shadow: 0 0 25px rgba(102, 252, 241, 0.8);
             transform: scale(1.05);
         }
 
@@ -85,7 +106,6 @@
             text-align: center;
         }
         
-        /* Ken Burns Efektli Arka Plan Fotoğrafları */
         .slideshow {
             position: absolute;
             width: 100%;
@@ -161,7 +181,6 @@
             margin-bottom: 25px;
         }
         
-        /* KAYIT HATIRLATICI HIZLI BUTON */
         .scroll-to-register {
             display: inline-block;
             background: #66fcf1;
@@ -304,26 +323,23 @@
             background: #ff4a4a;
             color: #fff;
         }
-        
-        /* GİZLİ YOUTUBE PLAYER */
-        #youtube-player {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
-        }
     </style>
 </head>
 <body>
 
-    <div id="youtube-player"></div>
-
+    <!-- 1. EKRAN: GİRİŞ KAPISI VE OYNATICI -->
     <div id="intro-overlay">
         <h1 class="intro-title">THE PARTY</h1>
-        <button class="play-btn" onclick="startParty()">Müziği Aç & Giriş Yap</button>
+        
+        <!-- Güvenlik engelini aşan aktif video penceresi -->
+        <div class="video-container">
+            <iframe id="yt-media" src="https://www.youtube.com/embed/rQ7tMWOCQlM?enablejsapi=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+
+        <button class="play-btn" onclick="dismissIntro()">Partiye Giriş Yap</button>
     </div>
 
+    <!-- 2. EKRAN: SİNEMATİK AKAN FOTOĞRAFLAR VE KONSEPT -->
     <div class="hero-section">
         <div class="slideshow">
             <div class="slide"></div>
@@ -332,6 +348,107 @@
             <div class="slide"></div>
         </div>
         <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>İster Rahat Ol İster Şık!</h1>
+            <p>Rahat olun gelin de çok kasmayacak... 🕺✨ Soft içecekler, kuruyemiş, müzik ve mekan bizden; gecenin muhabbeti sizden. Alkol tüketmek isteyen misafirlerimizin kendi içkisini getirmesi rica olunur (BYOB).</p>
+            
+            <!-- KAYIT HATIRLATICI HIZLI BUTON -->
+            <a href="#kayit-alani" class="scroll-to-register">👇 Aşağı Kaydır ve Yerini Ayırt!</a>
+
+            <div class="badge-container">
+                <div class="badge">🥤 Soft İçecekler & Kuruyemiş Bizden</div>
+                <div class="badge">🍷 Alkolünü Kendin Getir (BYOB)</div>
+                <div class="badge">👠 Topuklu Zor Olabilir, Dikkat Kızlar!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. EKRAN: DETAYLAR VE HARİTA & FORMLAR -->
+    <div class="content-section" id="kayit-alani">
+        <div class="grid-container">
+            
+            <!-- SOL KART: BİLGİ & GOOGLE MAPS -->
+            <div class="card">
+                <h2>📍 Ne Zaman? Nerede?</h2>
+                <div class="info-item">
+                    📅 <strong>Tarih:</strong> 12 Eylül 2026, Cumartesi
+                </div>
+                <div class="info-item">
+                    ⏰ <strong>Saat:</strong> 20:00 İtibariyle
+                </div>
+                <div class="info-item">
+                    🏡 <strong>Mekan:</strong> Parti Evi / Bahçe Alanı
+                </div>
+                <div class="info-item" style="color: #ffc107; font-weight: bold; background: rgba(255,193,7,0.1); padding: 15px; border-radius: 8px;">
+                    ⚠️ Burası Es-Es akşamları eser, soğuk olur unutma! Mekan bahçede olduğu için topuklu ayakkabı zor olabilir, dikkat kızlarrr! Yanınıza hırka veya mont almayı ihmal etmeyin.
+                </div>
+
+                <!-- Google Maps Embed Alanı -->
+                <iframe class="map-placeholder" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d196123.7123405!2d30.5225!3d39.7767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cc3e08479e0a21%3A0x400a45d064cf670!2sEski%C5%9fehir!5e0!3m2!1str!2str!4v1719520000000!5m2!1str!2str" 
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <!-- SAĞ KART: RSVP / GİZLİ LİSTELEME -->
+            <div class="card">
+                <h2>📝 Geliyor musun?</h2>
+                <form id="rsvp-form" onsubmit="handleRSVP(event)">
+                    <div class="form-group">
+                        <label for="guest-name">Adın Soyadın</label>
+                        <input type="text" id="guest-name" class="form-control" placeholder="Örn. Ahmet Yılmaz" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guest-count">Kaç Kişi Geleceksiniz? (Kendin Dahil)</label>
+                        <select id="guest-count" class="form-control">
+                            <option value="1">1 Kişi (Yalnız Kurt)</option>
+                            <option value="2">2 Kişi</option>
+                            <option value="3">3 Kişi</option>
+                            <option value="4">4+ Kişi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="guest-note">Eklemek İstediğin Not (İsteğe Bağlı)</label>
+                        <input type="text" id="guest-note" class="form-control" placeholder="Örn. Hırkam ve biralarım hazır!">
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">👍 Aynen Kanka, Geliyorum!</button>
+                    <button type="button" class="btn-decline" onclick="handleDecline()">👎 Maalesef Gelemiyorum</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Giriş kapısını kaldıran fonksiyon
+        function dismissIntro() {
+            document.getElementById('intro-overlay').classList.add('fade-out');
+        }
+
+        function handleRSVP(event) {
+            event.preventDefault();
+            const name = document.getElementById('guest-name').value;
+            if(!name) return;
+
+            document.getElementById('rsvp-form').reset();
+            alert(`Harika! Katılım durumun zarafetle kaydedildi kanka, Es-Es ayazına hazırlıklı gel! 🎉`);
+        }
+
+        function handleDecline() {
+            const name = document.getElementById('guest-name').value;
+            if(!name) {
+                alert("İsmini yaz kanka, kim gelemiyor görelim :)");
+                return;
+            }
+            document.getElementById('rsvp-form').reset();
+            alert("Sağlık olsun kanka, katılamayacağın not edildi. 🤝");
+        }
+    </script>
+</body>
+</html>
+ass="hero-overlay"></div>
         <div class="hero-content">
             <h1>İster Rahat Ol İster Şık!</h1>
             <p>Rahat olun gelin de çok kasmayacak... 🕺✨ Soft içecekler, kuruyemiş, müzik ve mekan bizden; gecenin muhabbeti sizden. Alkol tüketmek isteyen misafirlerimizin kendi içkisini getirmesi rica olunur (BYOB).</p>
