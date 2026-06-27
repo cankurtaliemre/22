@@ -6,7 +6,7 @@
     <title>THE BEFORE - W&D AIRSOFT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;700;900&family=Playfair+Display:ital,wght=0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:ital,wght=0,700;1,400&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body, html { font-family: 'Montserrat', sans-serif; background-color: #000; color: #c5c6c7; overflow-x: hidden; scroll-behavior: smooth; }
@@ -173,51 +173,35 @@
 
         document.getElementById('dj-avatar').src = "dj.jpg?v=" + new Date().getTime();
 
-        // GELİŞMİŞ ANDROID VE IOS DEDEKTÖRÜ
-        function getDeviceModel() {
+        // KULLANICIYI BİRBİRİNDEN AYIRACAK BENZERSİZ CİHAZ ID GENERATOR
+        function generateFingerprint() {
+            let id = localStorage.getItem('party_device_token');
+            if (!id) {
+                // Rastgele 4 karakterli benzersiz token üretir (Örn: 4f2a)
+                id = Math.random().toString(16).substring(2, 6);
+                localStorage.setItem('party_device_token', id);
+            }
+            
             const ua = navigator.userAgent;
             const w = window.screen.width;
             const h = window.screen.height;
             const res = w + "x" + h;
             
-            // Android Kontrolü + Çözünürlük Bazlı Akıllı Tahmin Dünyası
             if (/Android/i.test(ua)) {
-                let modelMatch = ua.match(/Android\s+([0-9\.]+);\s+([^;\)]+)/);
-                let rawModel = (modelMatch && modelMatch[2]) ? modelMatch[2].trim() : "";
-                
-                if (rawModel && !/Linux/i.test(rawModel) && !/Build/i.test(rawModel)) {
-                    return "Android (" + rawModel + ")";
-                }
-                
-                // Eğer tarayıcı modeli gizlediyse çözünürlükten yakala
-                if (w === 393 || w === 412) return "Android (Samsung S / Xiaomi Güncel Seri - " + res + ")";
-                if (w === 360) return "Android (Orta Segment Cihaz - " + res + ")";
-                if (w > 500) return "Android Tablet (" + res + ")";
-                
-                return "Android Telefon (" + res + ")";
+                return "Android (ID: " + id + " - " + res + ")";
             }
-            
-            // iPhone Kontrolü
             if (/iPhone/i.test(ua)) {
-                if (w === 393 && h === 852) return "iPhone 14 Pro / 15 / 15 Pro";
-                if (w === 430 && h === 932) return "iPhone 14 Pro Max / 15 Plus / 15 Pro Max";
-                if (w === 390 && h === 844) return "iPhone 12 / 12 Pro / 13 / 13 Pro / 14";
-                if (w === 428 && h === 926) return "iPhone 12 Pro Max / 13 Pro Max / 14 Plus";
-                if (w === 375 && h === 812) return "iPhone X / Xs / 11 Pro / 13 Mini";
-                if (w === 414 && h === 896) return "iPhone Xr / 11 / Xs Max / 11 Pro Max";
-                if (w === 375 && h === 667) return "iPhone 6 / 7 / 8 / SE";
-                
-                return "iPhone (" + res + ")";
+                if (w === 393 && h === 852) return "iPhone 14Pro/15 (" + id + ")";
+                if (w === 430 && h === 932) return "iPhone 14ProMax/15Plus (" + id + ")";
+                if (w === 390 && h === 844) return "iPhone 12/13/14 (" + id + ")";
+                return "iPhone (ID: " + id + " - " + res + ")";
             }
-            
-            if (/iPad/i.test(ua)) return "iPad";
-            if (/Macintosh/i.test(ua)) return "Mac Bilgisayar";
-            if (/Windows/i.test(ua)) return "Windows Bilgisayar";
-            
-            return "Bilinmeyen Cihaz (" + res + ")";
+            if (/Windows/i.test(ua)) return "PC Windows (" + id + ")";
+            return "Cihaz (ID: " + id + " - " + res + ")";
         }
 
-        document.getElementById('guest-device').value = getDeviceModel();
+        // Benzersiz Cihaz bilgisini ata
+        document.getElementById('guest-device').value = generateFingerprint();
         
         fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
@@ -264,7 +248,7 @@
             }).then(response => {
                 if (response.ok) { 
                     form.reset(); 
-                    document.getElementById('guest-device').value = getDeviceModel();
+                    document.getElementById('guest-device').value = generateFingerprint();
                     fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
                     alert(statusText === 'Geliyor' ? "Harika! Bilgilerin Excel tablosuna yazıldı kanka! 🎉" : "Sağlık olsun kanka, gelemediğin Excel'e işlendi. 🤝");
                 } else { alert("Bir hata oluştu!"); }
