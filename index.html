@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE PARTY - W&D AIRSOFT</title>
+    <title>THE BEFORE - W&D AIRSOFT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;700;900&family=Playfair+Display:ital,wght=0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:ital,wght=0,700;1,400&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body, html { font-family: 'Montserrat', sans-serif; background-color: #000; color: #c5c6c7; overflow-x: hidden; scroll-behavior: smooth; }
         
-        /* GİRİŞ INTRO PERDESİ */
-        #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999999; transition: all 1s ease-in-out; padding: 20px; }
+        /* GİRİŞ EKRANI - ARTIK SİYAH DEĞİL, FOTOĞRAF ÜSTÜNDE */
+        #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999999; transition: all 1s ease-in-out; padding: 20px; }
         #intro-overlay.fade-out { transform: translateY(-100%); opacity: 0; pointer-events: none; }
         .intro-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #fff; letter-spacing: 5px; margin-bottom: 2rem; text-transform: uppercase; text-align: center; }
         .play-btn { background: transparent; border: 2px solid #66fcf1; color: #66fcf1; padding: 15px 40px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; cursor: pointer; border-radius: 50px; transition: all 0.4s ease; box-shadow: 0 0 15px rgba(102, 252, 241, 0.2); }
         .play-btn:hover { background: #66fcf1; color: #0b0c10; box-shadow: 0 0 25px rgba(102, 252, 241, 0.6); transform: scale(1.05); }
         
-        /* EN ARKADA KESİNTİSİZ DÖNEN DUVAR KAĞIDI ALBÜMÜ */
+        /* SİTENİN TAMAMINA YAYILAN GÖRSEL DUVARI */
         .fixed-bg-slider { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; overflow: hidden; background-color: #000; }
         .hero-slider-img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1s ease-in-out; }
         .hero-slider-img.active { opacity: 1; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.25); z-index: 2; }
         
-        /* ÜSTTEN AKAN ŞEFFAF İÇERİK KATMANI */
         .scrollable-content { position: relative; z-index: 5; width: 100%; }
         
-        /* EKRAN GÖRÜNTÜSÜNDEKİ ORİJİNAL KARŞILAMA METNİNİN DURDUĞU İLK EKRAN */
         .hero-section { height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; text-align: center; pointer-events: none; position: relative; }
         .hero-content { max-width: 850px; padding: 20px; pointer-events: auto; display: flex; flex-direction: column; align-items: center; }
         .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #fff; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 3px 3px 12px rgba(0,0,0,1); }
@@ -39,22 +37,19 @@
         .badge-container { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 450px; }
         .badge { background: rgba(0, 0, 0, 0.75); border: 2px solid #66fcf1; padding: 12px 25px; border-radius: 50px; font-size: 0.95rem; color: #66fcf1; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.5); text-shadow: 1px 1px 2px #000; }
         
-        /* ŞEFFAF PANEL BÖLÜMÜ (SİYAH BOŞLUK YAPMAZ) */
         .content-section { width: 100%; padding: 40px 20px; position: relative; background: transparent; }
         .content-container { max-width: 1200px; margin: 0 auto; }
         
         .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
         @media (max-width: 900px) { .grid-container { grid-template-columns: 1fr; } .hero-content h1 { font-size: 2.2rem; } }
         
-        /* ŞEFFAF VE ŞIK KARTLAR */
-        .card { background: rgba(19, 26, 34, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(102,252,241,0.2); }
+        .card { background: rgba(19, 26, 34, 0.85); backdrop-filter: blur(5px); border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(102,252,241,0.2); }
         .card h2 { font-family: 'Playfair Display', serif; color: #fff; margin-bottom: 1.5rem; border-bottom: 2px solid #66fcf1; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
         .info-item { margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6; text-shadow: 1px 1px 2px #000; }
         .info-item strong { color: #66fcf1; }
         
         .map-placeholder { width: 100%; height: 340px; border-radius: 10px; overflow: hidden; margin-top: 20px; border: 2px solid #66fcf1; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: block; }
         
-        /* FORM */
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; color: #66fcf1; font-size: 0.9rem; font-weight: bold; }
         .form-control { width: 100%; padding: 12px; background: rgba(11, 12, 16, 0.9); border: 1px solid #45f3ff; border-radius: 8px; color: #fff; font-family: inherit; }
@@ -64,11 +59,9 @@
         .btn-decline { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid #ff4a4a; color: #ff4a4a; padding: 10px; font-size: 0.9rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
         .btn-decline:hover { background: #ff4a4a; color: #fff; }
         
-        /* BÜYÜTÜLMÜŞ DJ KABİNİ */
-        .dj-main-booth { margin-bottom: 40px; background: rgba(19, 26, 34, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 3px double #66fcf1; border-radius: 20px; padding: 50px 30px; text-align: center; box-shadow: 0 0 35px rgba(102,252,241,0.25); position: relative; display: block; width: 100%; z-index: 10; }
+        .dj-main-booth { margin-bottom: 40px; background: rgba(19, 26, 34, 0.85); backdrop-filter: blur(5px); border: 3px double #66fcf1; border-radius: 20px; padding: 50px 30px; text-align: center; box-shadow: 0 0 35px rgba(102,252,241,0.25); position: relative; display: block; width: 100%; z-index: 10; }
         .dj-main-booth::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #ff4a9f, #66fcf1, #ff4a9f); }
         
-        /* 220PX BOYUTUNDA EN ÖNDE DURAN DJ FOTOĞRAFI KAPLAMASI */
         .dj-img-wrapper { width: 220px; height: 220px; margin: 0 auto 20px auto; border-radius: 50%; border: 4px solid #66fcf1; overflow: hidden; box-shadow: 0 0 25px rgba(102, 252, 241, 0.7); background-color: #000; position: relative; z-index: 99999 !important; }
         .dj-photo-large { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; position: relative !important; z-index: 99999 !important; }
         
@@ -85,11 +78,10 @@
     </audio>
 
     <div id="intro-overlay">
-        <h1 class="intro-title">THE PARTY</h1>
+        <h1 class="intro-title">THE BEFORE</h1>
         <button class="play-btn" onclick="startParty()">Müziği Aç & Giriş Yap</button>
     </div>
 
-    <!-- ARKA PLAN GÖRSEL DUVARI -->
     <div class="fixed-bg-slider">
         <img src="1.jpg" class="hero-slider-img active" alt="Slayt 1">
         <img src="2.jpg" class="hero-slider-img" alt="Slayt 2">
@@ -99,10 +91,7 @@
         <div class="hero-overlay"></div>
     </div>
 
-    <!-- SCROLL EDEN ŞEFFAF SİTE İÇERİĞİ -->
     <div class="scrollable-content">
-        
-        <!-- İLK EKRAN -->
         <div class="hero-section">
             <div class="hero-content">
                 <h1>İster Rahat Ol İster Şık!</h1>
@@ -116,11 +105,8 @@
             </div>
         </div>
 
-        <!-- KAYDIRINCA GELEN ŞEFFAF PANEL -->
         <div class="content-section" id="kayit-alani">
             <div class="content-container">
-                
-                <!-- DJ ALANI -->
                 <div class="dj-main-booth">
                     <div class="dj-img-wrapper">
                         <img id="dj-avatar" src="dj.jpg" alt="DJ Merve" class="dj-photo-large">
@@ -130,7 +116,6 @@
                     <p class="dj-details">Yabancı, Techno ve Deep House tarzı setler tamamen ondan sorulur! (Gecenin ilerleyen saatlerinde Oynama Havaları x Türkçe Pop tabikisi var, kasmayın diyoruz cınım.)</p>
                     <div class="dj-quote-box">"Techno and tequila, I can't even see ya cınım💅"</div>
                 </div>
-
                 <div class="grid-container">
                     <div class="card">
                         <div>
@@ -139,13 +124,9 @@
                             <div class="info-item">📅 <strong>Tarih:</strong> 22 Ağustos 2026, Cumartesi</div>
                             <div class="info-item">⏰ <strong>Saat:</strong> 20:00 İtibariyle</div>
                             <div class="info-item">🏡 <strong>Adres:</strong> Batıkent, Karagözler Cd. No:21, Tepebaşı/Eskişehir</div>
-                            <div class="info-item" style="color: #ffc107; font-weight: bold; background: rgba(255,193,7,0.3); padding: 15px; border-radius: 8px; text-shadow: none;">
-                                ⚠️ Akşamları buralar güzel eser, soğuk olur unutma! Mekan açık/bahçe konseptli olduğu için topuklu ayakkabı zor olabilir, dikkat kızlarrr! Yanınıza mutlaka hırka veya mont alın.
-                            </div>
                         </div>
                         <iframe class="map-placeholder" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1529.2831828350125!2d30.4191259!3d39.7838099!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ3JzAxLjciTiAzMMKwMjUnMDguOSJF!5e0!3m2!1str!2str!4v1719525000000!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
-
                     <div class="card">
                         <div>
                             <h2>📝 Geliyor musun?</h2>
@@ -173,21 +154,16 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
-
     </div>
 
     <script>
         var audio = document.getElementById('party-audio');
         var musicStarted = false;
-
         document.getElementById('dj-avatar').src = "dj.jpg?v=" + new Date().getTime();
-
         var slides = document.querySelectorAll('.hero-slider-img');
         var currentSlide = 0;
-        
         function nextSlide() {
             if(slides.length > 0) {
                 slides[currentSlide].classList.remove('active');
@@ -196,17 +172,14 @@
             }
         }
         setInterval(nextSlide, 5000);
-
         function startParty() {
             audio.currentTime = 16; 
             audio.play().then(function() { musicStarted = true; }).catch(function(e){});
             document.getElementById('intro-overlay').classList.add('fade-out');
         }
-
         document.addEventListener("visibilitychange", function() {
             if (musicStarted) { if (document.hidden) { audio.pause(); } else { audio.play().catch(function(e){}); } }
         });
-
         function handleRSVP(event) {
             event.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -221,7 +194,6 @@
                 else { alert("Bir hata oluştu!"); }
             }).finally(() => { btn.disabled = false; btn.innerText = "👍 Aynen Kanka, Geliyorum!"; });
         }
-
         function handleDecline() {
             const name = document.getElementById('guest-name').value;
             if(!name) { alert("İsmini yaz kanka, kim gelemiyor görelim :)"); return; }
