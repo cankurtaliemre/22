@@ -304,6 +304,417 @@
             background: #ff4a4a;
             color: #fff;
         }
+        
+        /* GİZLİ YOUTUBE PLAYER */
+        #youtube-player {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="youtube-player"></div>
+
+    <div id="intro-overlay">
+        <h1 class="intro-title">THE PARTY</h1>
+        <button class="play-btn" onclick="startParty()">Müziği Aç & Giriş Yap</button>
+    </div>
+
+    <div class="hero-section">
+        <div class="slideshow">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>İster Rahat Ol İster Şık!</h1>
+            <p>Rahat olun gelin de çok kasmayacak... 🕺✨ Soft içecekler, kuruyemiş, müzik ve mekan bizden; gecenin muhabbeti sizden. Alkol tüketmek isteyen misafirlerimizin kendi içkisini getirmesi rica olunur (BYOB).</p>
+            
+            <a href="#kayit-alani" class="scroll-to-register">👇 Aşağı Kaydır ve Yerini Ayırt!</a>
+
+            <div class="badge-container">
+                <div class="badge">🥤 Soft İçecekler & Kuruyemiş Bizden</div>
+                <div class="badge">🍷 Alkolünü Kendin Getir (BYOB)</div>
+                <div class="badge">👠 Topuklu Zor Olabilir, Dikkat Kızlar!</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section" id="kayit-alani">
+        <div class="grid-container">
+            
+            <div class="card">
+                <h2>📍 Ne Zaman? Nerede?</h2>
+                <div class="info-item">
+                    📅 <strong>Tarih:</strong> 12 Eylül 2026, Cumartesi
+                </div>
+                <div class="info-item">
+                    ⏰ <strong>Saat:</strong> 20:00 İtibariyle
+                </div>
+                <div class="info-item">
+                    🏡 <strong>Mekan:</strong> Parti Evi / Bahçe Alanı
+                </div>
+                <div class="info-item" style="color: #ffc107; font-weight: bold; background: rgba(255,193,7,0.1); padding: 15px; border-radius: 8px;">
+                    ⚠️ Burası Es-Es akşamları eser, soğuk olur unutma! Mekan bahçede olduğu için topuklu ayakkabı zor olabilir, dikkat kızlarrr! Yanınıza hırka veya mont almayı ihmal etmeyin.
+                </div>
+
+                <iframe class="map-placeholder" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d196123.7123405!2d30.5225!3d39.7767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cc3e08479e0a21%3A0x400a45d064cf670!2sEski%C5%9fehir!5e0!3m2!1str!2str!4v1719520000000!5m2!1str!2str" 
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <div class="card">
+                <h2>📝 Geliyor musun?</h2>
+                <form id="rsvp-form" onsubmit="handleRSVP(event)">
+                    <div class="form-group">
+                        <label for="guest-name">Adın Soyadın</label>
+                        <input type="text" id="guest-name" class="form-control" placeholder="Örn. Ahmet Yılmaz" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guest-count">Kaç Kişi Geleceksiniz? (Kendin Dahil)</label>
+                        <select id="guest-count" class="form-control">
+                            <option value="1">1 Kişi (Yalnız Kurt)</option>
+                            <option value="2">2 Kişi</option>
+                            <option value="3">3 Kişi</option>
+                            <option value="4">4+ Kişi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="guest-note">Eklemek İstediğin Not (İsteğe Bağlı)</label>
+                        <input type="text" id="guest-note" class="form-control" placeholder="Örn. Hırkam ve biralarım hazır!">
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">👍 Aynen Kanka, Geliyorum!</button>
+                    <button type="button" class="btn-decline" onclick="handleDecline()">👎 Maalesef Gelemiyorum</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '1',
+                width: '1',
+                videoId: 'rQ7tMWOCQlM', // Mahmut Orhan - Feel
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'loop': 1,
+                    'playlist': 'rQ7tMWOCQlM'
+                }
+            });
+        }
+
+        function startParty() {
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
+            document.getElementById('intro-overlay').classList.add('fade-out');
+        }
+
+        function handleRSVP(event) {
+            event.preventDefault();
+            const name = document.getElementById('guest-name').value;
+            if(!name) return;
+
+            document.getElementById('rsvp-form').reset();
+            alert(`Harika! Katılım durumun zarafetle kaydedildi kanka, Es-Es ayazına hazırlıklı gel! 🎉`);
+        }
+
+        function handleDecline() {
+            const name = document.getElementById('guest-name').value;
+            if(!name) {
+                alert("İsmini yaz kanka, kim gelemiyor görelim :)");
+                return;
+            }
+            document.getElementById('rsvp-form').reset();
+            alert("Sağlık olsun kanka, katılamayacağın not edildi. 🤝");
+        }
+    </script>
+</body>
+</html>
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+        #intro-overlay.fade-out {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .intro-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #fff;
+            letter-spacing: 5px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        .play-btn {
+            background: transparent;
+            border: 2px solid #66fcf1;
+            color: #66fcf1;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.2);
+        }
+        .play-btn:hover {
+            background: #66fcf1;
+            color: #0b0c10;
+            box-shadow: 0 0 25px rgba(102, 252, 241, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* 2. EKRAN: HERO / AKAN FOTOĞRAFLAR */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        /* Ken Burns Efektli Arka Plan Fotoğrafları */
+        .slideshow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1);
+            animation: imageAnimation 24s linear infinite;
+            backface-visibility: hidden;
+        }
+        .slide:nth-child(1) { 
+            background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80'); 
+            animation-delay: 0s;
+        }
+        .slide:nth-child(2) { 
+            background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1920&q=80'); 
+            animation-delay: 6s;
+        }
+        .slide:nth-child(3) { 
+            background-image: url('https://images.unsplash.com/photo-1505232458627-a727264d7662?auto=format&fit=crop&w=1920&q=80'); 
+            animation-delay: 12s;
+        }
+        .slide:nth-child(4) { 
+            background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1920&q=80'); 
+            animation-delay: 18s;
+        }
+
+        @keyframes imageAnimation { 
+            0% { opacity: 0; animation-timing-function: ease-in; }
+            8% { opacity: 1; transform: scale(1.05) translateX(10px); animation-timing-function: ease-out; }
+            25% { opacity: 1; transform: scale(1.1) translateX(-10px); }
+            33% { opacity: 0; transform: scale(1.15); }
+            100% { opacity: 0 }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 850px;
+            padding: 20px;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        .hero-content p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #e5e7eb;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+        
+        /* KAYIT HATIRLATICI HIZLI BUTON */
+        .scroll-to-register {
+            display: inline-block;
+            background: #66fcf1;
+            color: #0b0c10;
+            padding: 12px 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 30px;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+        .scroll-to-register:hover {
+            background: #45e3db;
+            transform: translateY(-2px);
+        }
+
+        .badge-container {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .badge {
+            background: rgba(102, 252, 241, 0.1);
+            border: 1px solid rgba(102, 252, 241, 0.4);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #66fcf1;
+            font-weight: bold;
+        }
+
+        /* 3. EKRAN: DETAYLAR VE FORMLAR */
+        .content-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.2rem; }
+        }
+
+        .card {
+            background: #1f2833;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #66fcf1;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-item {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .info-item strong {
+            color: #66fcf1;
+        }
+        .map-placeholder {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            border: none;
+        }
+
+        /* Form Stilleri */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #66fcf1;
+            font-size: 0.9rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background: #0b0c10;
+            border: 1px solid #45f3ff;
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #66fcf1;
+            box-shadow: 0 0 10px rgba(102,252,241,0.3);
+        }
+        .btn-submit {
+            width: 100%;
+            background: #66fcf1;
+            color: #0b0c10;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        .btn-submit:hover {
+            background: #45e3db;
+            box-shadow: 0 0 15px rgba(102,252,241,0.4);
+        }
+        .btn-decline {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #ff4a4a;
+            color: #ff4a4a;
+            padding: 10px;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-decline:hover {
+            background: #ff4a4a;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
