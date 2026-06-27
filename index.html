@@ -6,30 +6,32 @@
     <title>THE PARTY - W&D AIRSOFT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:ital,wght=0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;700;900&family=Playfair+Display:ital,wght=0,700;1,400&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body, html { font-family: 'Montserrat', sans-serif; background-color: #000; color: #c5c6c7; overflow-x: hidden; scroll-behavior: smooth; }
         
         /* GİRİŞ INTRO PERDESİ */
-        #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: all 1s ease-in-out; padding: 20px; }
+        #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 999999; transition: all 1s ease-in-out; padding: 20px; }
         #intro-overlay.fade-out { transform: translateY(-100%); opacity: 0; pointer-events: none; }
         .intro-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #fff; letter-spacing: 5px; margin-bottom: 2rem; text-transform: uppercase; text-align: center; }
         .play-btn { background: transparent; border: 2px solid #66fcf1; color: #66fcf1; padding: 15px 40px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; cursor: pointer; border-radius: 50px; transition: all 0.4s ease; box-shadow: 0 0 15px rgba(102, 252, 241, 0.2); }
         .play-btn:hover { background: #66fcf1; color: #0b0c10; box-shadow: 0 0 25px rgba(102, 252, 241, 0.6); transform: scale(1.05); }
         
-        /* EN ARKADA HER DAİM SABİT VE PARLAK DURAN ALBÜM DUVARI */
+        /* EN ARKADA KESİNTİSİZ DÖNEN DUVAR KAĞIDI ALBÜMÜ */
         .fixed-bg-slider { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; overflow: hidden; background-color: #000; }
         .hero-slider-img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1s ease-in-out; }
         .hero-slider-img.active { opacity: 1; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.15); z-index: 2; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.25); z-index: 2; }
         
-        /* ÜSTTE FOTOĞRAFLARIN ÜZERİNDEN AKAN İÇERİK YAPISI */
+        /* ÜSTTEN AKAN ŞEFFAF İÇERİK KATMANI */
         .scrollable-content { position: relative; z-index: 5; width: 100%; }
         
-        /* İLK GİRİŞTE FOTOĞRAFLARI ENGELSİZ GÖSTEREN 100VH ALAN */
+        /* ORİJİNAL KARŞILAMA METNİNİN GERİ GELDİĞİ İLK EKRAN */
         .hero-section { height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; text-align: center; pointer-events: none; position: relative; }
         .hero-content { max-width: 850px; padding: 20px; pointer-events: auto; display: flex; flex-direction: column; align-items: center; }
+        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #fff; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 3px 3px 12px rgba(0,0,0,1); }
+        .hero-content p { font-size: 1.25rem; line-height: 1.8; color: #fff; font-weight: bold; margin-bottom: 25px; text-shadow: 2px 2px 10px rgba(0,0,0,1); }
         
         .scroll-to-register { display: inline-block; background: #66fcf1; color: #0b0c10; padding: 14px 35px; font-weight: 900; text-transform: uppercase; text-decoration: none; border-radius: 50px; letter-spacing: 1px; margin-bottom: 25px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.5); font-size: 1rem; }
         .scroll-to-register:hover { background: #45e3db; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102,252,241,0.4); }
@@ -37,20 +39,18 @@
         .badge-container { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 450px; }
         .badge { background: rgba(0, 0, 0, 0.75); border: 2px solid #66fcf1; padding: 12px 25px; border-radius: 50px; font-size: 0.95rem; color: #66fcf1; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.5); text-shadow: 1px 1px 2px #000; }
         
-        /* SİYAH BOŞLUĞU YOK EDEN, ŞEFFAF AKICI İÇERİK BÖLÜMÜ */
+        /* ŞEFFAF PANEL BÖLÜMÜ */
         .content-section { width: 100%; padding: 40px 20px; position: relative; background: transparent; }
         .content-container { max-width: 1200px; margin: 0 auto; }
         
         .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
-        @media (max-width: 900px) { .grid-container { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .grid-container { grid-template-columns: 1fr; } .hero-content h1 { font-size: 2.2rem; } }
         
-        /* ŞEFFAF VE ŞIK KARTLAR (ARKADAKİ FOTOĞRAFLARI GÖSTERİR) */
         .card { background: rgba(19, 26, 34, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(102,252,241,0.2); }
         .card h2 { font-family: 'Playfair Display', serif; color: #fff; margin-bottom: 1.5rem; border-bottom: 2px solid #66fcf1; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
         .info-item { margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6; text-shadow: 1px 1px 2px #000; }
         .info-item strong { color: #66fcf1; }
         
-        /* HARİTA */
         .map-placeholder { width: 100%; height: 340px; border-radius: 10px; overflow: hidden; margin-top: 20px; border: 2px solid #66fcf1; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: block; }
         
         /* FORM */
@@ -63,13 +63,13 @@
         .btn-decline { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid #ff4a4a; color: #ff4a4a; padding: 10px; font-size: 0.9rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
         .btn-decline:hover { background: #ff4a4a; color: #fff; }
         
-        /* ŞEFFAF DEV DJ ALANI */
+        /* DJ SAHNESİ KABİNİ */
         .dj-main-booth { margin-bottom: 40px; background: rgba(19, 26, 34, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 3px double #66fcf1; border-radius: 20px; padding: 35px 25px; text-align: center; box-shadow: 0 0 25px rgba(102,252,241,0.2); position: relative; display: block; width: 100%; }
         .dj-main-booth::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #ff4a9f, #66fcf1, #ff4a9f); }
         
-        /* DJ FOTOĞRAFINI KESİN GÖSTEREN ÖLÇEKLENDİRME */
-        .dj-img-wrapper { width: 160px; height: 160px; margin: 0 auto 15px auto; border-radius: 50%; border: 3px solid #66fcf1; overflow: hidden; box-shadow: 0 0 20px rgba(102, 252, 241, 0.5); background-color: #000; position: relative; }
-        .dj-photo-large { width: 100%; height: 100%; object-fit: cover; display: block; }
+        /* EN ÖN NESNE YAPILAN KURŞUN GEÇİRMEZ DJ FOTOĞRAFI */
+        .dj-img-wrapper { width: 160px; height: 160px; margin: 0 auto 15px auto; border-radius: 50%; border: 3px solid #66fcf1; overflow: hidden; box-shadow: 0 0 20px rgba(102, 252, 241, 0.6); background-color: #000; position: relative; z-index: 99999 !important; }
+        .dj-photo-large { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; position: relative !important; z-index: 99999 !important; }
         
         .dj-badge { background: #ff4a9f; color: #fff; font-size: 0.75rem; padding: 4px 12px; border-radius: 50px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; display: inline-block; margin-bottom: 10px; }
         .dj-name-large { font-family: 'Playfair Display', serif; font-size: 2rem; color: #fff; font-weight: 900; letter-spacing: 1px; margin-bottom: 10px; text-shadow: 1px 1px 2px #000; }
@@ -88,7 +88,7 @@
         <button class="play-btn" onclick="startParty()">Müziği Aç & Giriş Yap</button>
     </div>
 
-    <!-- ARKA PLAN GÖRSEL ALBÜMÜ -->
+    <!-- ARKA PLAN GÖRSEL DUVARI -->
     <div class="fixed-bg-slider">
         <img src="1.jpg" class="hero-slider-img active" alt="Slayt 1">
         <img src="2.jpg" class="hero-slider-img" alt="Slayt 2">
@@ -98,12 +98,14 @@
         <div class="hero-overlay"></div>
     </div>
 
-    <!-- ÜSTTEN AKAN ŞEFFAF İÇERİK YAPISI -->
+    <!-- SCROLL EDEN ŞEFFAF SİTE İÇERİĞİ -->
     <div class="scrollable-content">
         
-        <!-- İLK EKRAN (BUTON VE BADGELER FOTOĞRAFIN ÜZERİNDE DÜZGÜNCE DURUR) -->
+        <!-- İLK EKRAN: ORİJİNAL KARŞILAMA METNİ VE BUTONLAR BURADA -->
         <div class="hero-section">
             <div class="hero-content">
+                <h1>İster Rahat Ol İster Şık!</h1>
+                <p>Rahat olun gelin de çok kasmayacak... 🕺✨ Soft içecekler, kuruyemiş, müzik ve mekan bizden; gecenin muhabbeti sizden. Alkol tüketmek isteyen misafirlerimizin kendi içkisini getirmesi rica olunur (BYOB).</p>
                 <a href="#kayit-alani" class="scroll-to-register">👇 AŞAĞI KAYDIR VE YERİNİ AYIRT!</a>
                 <div class="badge-container">
                     <div class="badge">🥤 Soft İçecekler & Kuruyemiş Bizden</div>
@@ -113,7 +115,7 @@
             </div>
         </div>
 
-        <!-- YUKARI ÇEKİNCE SİYAH BOŞLUK YAPMAYAN, FOTOĞRAFLARIN ÜZERİNDEN GEÇEN ALAN -->
+        <!-- KAYDIRINCA GELEN ŞEFFAF PANEL -->
         <div class="content-section" id="kayit-alani">
             <div class="content-container">
                 
@@ -140,7 +142,6 @@
                                 ⚠️ Akşamları buralar güzel eser, soğuk olur unutma! Mekan açık/bahçe konseptli olduğu için topuklu ayakkabı zor olabilir, dikkat kızlarrr! Yanınıza mutlaka hırka veya mont alın.
                             </div>
                         </div>
-                        <!-- TAM VE NET NOKTA ATIŞI HARİTA -->
                         <iframe class="map-placeholder" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1529.2831828350125!2d30.4191259!3d39.7838099!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ3JzAxLjciTiAzMMKwMjUnMDguOSJF!5e0!3m2!1str!2str!4v1719525000000!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
@@ -160,74 +161,5 @@
                                         <option value="3">3 Kişi</option>
                                         <option value="4">4+ Kişi</option>
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="guest-note">Eklemek İstediğin Not (İsteğe Bağlı)</label>
-                                    <input type="text" id="guest-note" name="guest_note" class="form-control" placeholder="Örn. Biralar soğutuluyor, hırkam kolda!">
-                                </div>
-                                <button type="submit" id="submit-btn" class="btn-submit">👍 Aynen Kanka, Geliyorum!</button>
-                                <button type="button" class="btn-decline" onclick="handleDecline()">👎 Maalesef Gelemiyorum</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        var audio = document.getElementById('party-audio');
-        var musicStarted = false;
-
-        // DJ FOTOĞRAFINI TAZELEYEN MOTOR
-        document.getElementById('dj-avatar').src = "dj.jpg?v=" + new Date().getTime();
-
-        // SLIDER MOTORU
-        var slides = document.querySelectorAll('.hero-slider-img');
-        var currentSlide = 0;
-        
-        function nextSlide() {
-            if(slides.length > 0) {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }
-        }
-        setInterval(nextSlide, 5000);
-
-        function startParty() {
-            audio.currentTime = 16; 
-            audio.play().then(function() { musicStarted = true; }).catch(function(e){});
-            document.getElementById('intro-overlay').classList.add('fade-out');
-        }
-
-        document.addEventListener("visibilitychange", function() {
-            if (musicStarted) { if (document.hidden) { audio.pause(); } else { audio.play().catch(function(e){}); } }
-        });
-
-        function handleRSVP(event) {
-            event.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            const form = document.getElementById('rsvp-form');
-            btn.disabled = true;
-            btn.innerText = "Kaydediliyor...";
-            fetch("https://api.sheetmonkey.io/form/kcTSGCRgs48FAdqow7VQwb", {
-                method: "POST",
-                body: new FormData(form)
-            }).then(response => {
-                if (response.ok) { form.reset(); alert(`Harika! Bilgilerin Excel tablosuna yazıldı kanka! 🎉`); }
-                else { alert("Bir hata oluştu!"); }
-            }).finally(() => { btn.disabled = false; btn.innerText = "👍 Aynen Kanka, Geliyorum!"; });
-        }
-
-        function handleDecline() {
-            const name = document.getElementById('guest-name').value;
-            if(!name) { alert("İsmini yaz kanka, kim gelemiyor görelim :)"); return; }
-            document.getElementById('rsvp-form').reset();
-            alert("Sağlık olsun kanka. 🤝");
-        }
-    </script>
-</body>
-</html>
+                                end
+                                    
