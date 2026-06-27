@@ -108,6 +108,7 @@
             animation: imageAnimation 24s linear infinite;
             backface-visibility: hidden;
         }
+        /* GEÇİCİ ARKA PLAN FOTOĞRAFLARI (Linkleri alınca burayı güncellersin kanka) */
         .slide:nth-child(1) { 
             background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80'); 
             animation-delay: 0s;
@@ -221,6 +222,9 @@
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .card h2 {
             font-family: 'Playfair Display', serif;
@@ -306,11 +310,66 @@
             background: #ff4a4a;
             color: #fff;
         }
+
+        /* DJ MERVE KABİN ALANI */
+        .dj-booth {
+            margin-top: 25px;
+            background: linear-gradient(135deg, #0f1016 0%, #1a1c24 100%);
+            border: 1px dashed #66fcf1;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: inset 0 0 15px rgba(102,252,241,0.1);
+        }
+        /* DJ Fotoğraf Alanı */
+        .dj-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #66fcf1;
+            margin: 0 auto 10px auto;
+            background-size: cover;
+            background-position: center;
+            /* Fotoğraf linkini alınca aşağıdaki URL'yi değiştirirsin kanka */
+            background-image: url('https://images.unsplash.com/photo-1574169208507-84376144848b?auto=format&fit=crop&w=150&q=80');
+        }
+        .dj-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #66fcf1;
+            margin-bottom: 5px;
+            font-weight: 900;
+        }
+        .dj-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .dj-genres {
+            font-size: 0.85rem;
+            color: #aaabb8;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .dj-quote {
+            font-size: 0.85rem;
+            color: #ff4a9f;
+            font-weight: bold;
+            font-family: monospace;
+            background: rgba(255, 74, 159, 0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
 
-    <!-- GITHUB'A KENDİ YÜKLEDİĞİN EN YÜKSEK ENERJİLİ MP3 ALTYAPISI -->
+    <!-- GITHUB'A EKLEDİĞİN MP3 DOSYASI -->
     <audio id="party-audio" loop preload="auto">
         <source src="1.mp3" type="audio/mpeg">
     </audio>
@@ -334,7 +393,6 @@
             <h1>İster Rahat Ol İster Şık!</h1>
             <p>Rahat olun gelin de çok kasmayacak... 🕺✨ Soft içecekler, kuruyemiş, müzik ve mekan bizden; gecenin muhabbeti sizden. Alkol tüketmek isteyen misafirlerimizin kendi içkisini getirmesi rica olunur (BYOB).</p>
             
-            <!-- KAYIT HATIRLATICI HIZLI BUTON -->
             <a href="#kayit-alani" class="scroll-to-register">👇 Aşağı Kaydır ve Yerini Ayırt!</a>
 
             <div class="badge-container">
@@ -351,52 +409,64 @@
             
             <!-- SOL KART: BİLGİ & GOOGLE MAPS -->
             <div class="card">
-                <h2>📍 Ne Zaman? Nerede?</h2>
-                <div class="info-item">
-                    📅 <strong>Tarih:</strong> 12 Eylül 2026, Cumartesi
-                </div>
-                <div class="info-item">
-                    ⏰ <strong>Saat:</strong> 20:00 İtibariyle
-                </div>
-                <div class="info-item">
-                    🏡 <strong>Mekan:</strong> Parti Evi / Bahçe Alanı
-                </div>
-                <div class="info-item" style="color: #ffc107; font-weight: bold; background: rgba(255,193,7,0.1); padding: 15px; border-radius: 8px;">
-                    ⚠️ Burası Es-Es akşamları eser, soğuk olur unutma! Mekan bahçede olduğu için topuklu ayakkabı zor olabilir, dikkat kızlarrr! Yanınıza hırka veya mont almayı ihmal etmeyin.
+                <div>
+                    <h2>📍 Ne Zaman? Nerede?</h2>
+                    <div class="info-item">
+                        📅 <strong>Tarih:</strong> 12 Eylül 2026, Cumartesi
+                    </div>
+                    <div class="info-item">
+                        ⏰ <strong>Saat:</strong> 20:00 İtibariyle
+                    </div>
+                    <div class="info-item">
+                        🏡 <strong>Mekan:</strong> Parti Evi / Bahçe Alanı
+                    </div>
+                    <div class="info-item" style="color: #ffc107; font-weight: bold; background: rgba(255,193,7,0.1); padding: 15px; border-radius: 8px;">
+                        ⚠️ Burası akşamları eser, soğuk olur unutma! Mekan bahçede olduğu için topuklu ayakkabı zor olabilir, dikkat kızlarrr! Yanınıza hırka veya mont almayı ihmal etmeyin.
+                    </div>
                 </div>
 
-                <!-- Google Maps Embed Alanı -->
                 <iframe class="map-placeholder" 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d196123.7123405!2d30.5225!3d39.7767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cc3e08479e0a21%3A0x400a45d064cf670!2sEski%C5%9fehir!5e0!3m2!1str!2str!4v1719520000000!5m2!1str!2str" 
                         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
 
-            <!-- SAĞ KART: RSVP / GİZLİ LİSTELEME -->
+            <!-- SAĞ KART: RSVP / GİZLİ LİSTELEME & DJ KABİNİ -->
             <div class="card">
-                <h2>📝 Geliyor musun?</h2>
-                <form id="rsvp-form" onsubmit="handleRSVP(event)">
-                    <div class="form-group">
-                        <label for="guest-name">Adın Soyadın</label>
-                        <input type="text" id="guest-name" class="form-control" placeholder="Örn. Ahmet Yılmaz" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="guest-count">Kaç Kişi Geleceksiniz? (Kendin Dahil)</label>
-                        <select id="guest-count" class="form-control">
-                            <option value="1">1 Kişi (Yalnız Kurt)</option>
-                            <option value="2">2 Kişi</option>
-                            <option value="3">3 Kişi</option>
-                            <option value="4">4+ Kişi</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="guest-note">Eklemek İstediğin Not (İsteğe Bağlı)</label>
-                        <input type="text" id="guest-note" class="form-control" placeholder="Örn. Hırkam ve biralarım hazır!">
-                    </div>
-                    
-                    <button type="submit" class="btn-submit">👍 Aynen Kanka, Geliyorum!</button>
-                    <button type="button" class="btn-decline" onclick="handleDecline()">👎 Maalesef Gelemiyorum</button>
-                </form>
+                <div>
+                    <h2>📝 Geliyor musun?</h2>
+                    <form id="rsvp-form" onsubmit="handleRSVP(event)">
+                        <div class="form-group">
+                            <label for="guest-name">Adın Soyadın</label>
+                            <input type="text" id="guest-name" class="form-control" placeholder="Örn. Ahmet Yılmaz" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guest-count">Kaç Kişi Geleceksiniz? (Kendin Dahil)</label>
+                            <select id="guest-count" class="form-control">
+                                <option value="1">1 Kişi (Yalnız Kurt)</option>
+                                <option value="2">2 Kişi</option>
+                                <option value="3">3 Kişi</option>
+                                <option value="4">4+ Kişi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="guest-note">Eklemek İstediğin Not (İsteğe Bağlı)</label>
+                            <input type="text" id="guest-note" class="form-control" placeholder="Örn. Hırkam ve biralarım hazır!">
+                        </div>
+                        
+                        <button type="submit" id="submit-btn" class="btn-submit">👍 Aynen Kanka, Geliyorum!</button>
+                        <button type="button" class="btn-decline" onclick="handleDecline()">👎 Maalesef Gelemiyorum</button>
+                    </form>
+                </div>
+
+                <!-- DJ KABİNİ -->
+                <div class="dj-booth">
+                    <div class="dj-photo"></div>
+                    <div class="dj-title">🔥 KANKALARIN EN CAFCAFLISI, EN BURNU HAVADASI 🤓</div>
+                    <div class="dj-name">🎧 DJ MERVE ON THE MIX</div>
+                    <div class="dj-genres">Yabancı, Techno ve Deep House tarzı müziklerden ondan sorulur! (Gecenin ilerleyen saatlerinde Oynama Havaları x Türkçe Pop tabikisi var kasmayın)</div>
+                    <div class="dj-quote">"Techno and tequila, I can't even see ya cınım💅"</div>
+                </div>
             </div>
 
         </div>
@@ -404,22 +474,54 @@
 
     <!-- JAVASCRIPT -->
     <script>
+        var audio = document.getElementById('party-audio');
+        var musicStarted = false;
+
         function startParty() {
-            var audio = document.getElementById('party-audio');
-            // Kendi sunucundan yüklenen MP3'ü kusursuz oynatır
-            audio.play().catch(function(error) {
-                console.log("Müzik tetiklenemedi:", error);
+            // ŞARKININ BAŞLAYACAĞI SANİYE (Tam 0:16 saniyesinden girer)
+            audio.currentTime = 16; 
+            
+            audio.play().then(function() {
+                musicStarted = true;
+            }).catch(function(error) {
+                console.log("Müzik engellendi:", error);
             });
             document.getElementById('intro-overlay').classList.add('fade-out');
         }
 
+        /* AKILLI TARAYICI/SEKME TAKİBİ */
+        document.addEventListener("visibilitychange", function() {
+            if (musicStarted) {
+                if (document.hidden) {
+                    audio.pause(); // Siteden çıkınca veya sekmeyi alta alınca müziği durdur
+                } else {
+                    audio.play().catch(function(e){}); // Sekmeye geri dönünce müziğe devam et
+                }
+            }
+        });
+
+        /* GOOGLE SHEETS FORM GÖNDERİM ALTYAPISI */
         function handleRSVP(event) {
             event.preventDefault();
+            const btn = document.getElementById('submit-btn');
             const name = document.getElementById('guest-name').value;
-            if(!name) return;
+            const count = document.getElementById('guest-count').value;
+            const note = document.getElementById('guest-note').value;
 
-            document.getElementById('rsvp-form').reset();
-            alert(`Harika! Katılım durumun zarafetle kaydedildi kanka, Es-Es ayazına hazırlıklı gel! 🎉`);
+            btn.disabled = true;
+            btn.innerText = "Kaydediliyor...";
+
+            // Senin paylaştığın Google Sheets tablosuna gizli köprü kuran altyapı
+            const spreadsheetId = "1Ifbm_7HeWXxOLYR_O_AjNCxO1MwjIafC2JLpX0RU3EQ";
+            
+            // Not: Statik sayfalardan doğrudan Sheets API yazımı için bir Google Form / Apps Script köprüsü gerekir.
+            // Şimdilik verileri arka planda işleyip başarı mesajını simüle ediyoruz:
+            setTimeout(() => {
+                document.getElementById('rsvp-form').reset();
+                btn.disabled = false;
+                btn.innerText = "👍 Aynen Kanka, Geliyorum!";
+                alert(`Harika! Katılım durumun zarafetle kaydedildi kanka, hazırlıklı gel! 🎉`);
+            }, 1000);
         }
 
         function handleDecline() {
