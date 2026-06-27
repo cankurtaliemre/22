@@ -108,7 +108,6 @@
             animation: imageAnimation 24s linear infinite;
             backface-visibility: hidden;
         }
-        /* GEÇİCİ ARKA PLAN FOTOĞRAFLARI (Linkleri alınca burayı güncellersin kanka) */
         .slide:nth-child(1) { 
             background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80'); 
             animation-delay: 0s;
@@ -313,7 +312,7 @@
 
         /* DJ MERVE KABİN ALANI */
         .dj-booth {
-            margin-top: 25px;
+            margin-bottom: 25px;
             background: linear-gradient(135deg, #0f1016 0%, #1a1c24 100%);
             border: 1px dashed #66fcf1;
             border-radius: 12px;
@@ -321,7 +320,6 @@
             text-align: center;
             box-shadow: inset 0 0 15px rgba(102,252,241,0.1);
         }
-        /* DJ Fotoğraf Alanı */
         .dj-photo {
             width: 80px;
             height: 80px;
@@ -330,7 +328,6 @@
             margin: 0 auto 10px auto;
             background-size: cover;
             background-position: center;
-            /* Fotoğraf linkini alınca aşağıdaki URL'yi değiştirirsin kanka */
             background-image: url('https://images.unsplash.com/photo-1574169208507-84376144848b?auto=format&fit=crop&w=150&q=80');
         }
         .dj-title {
@@ -431,18 +428,27 @@
                 </iframe>
             </div>
 
-            <!-- SAĞ KART: RSVP / GİZLİ LİSTELEME & DJ KABİNİ -->
+            <!-- SAĞ KART: DJ KABİNİ VE HEMEN ALTINDA RSVP FORMU -->
             <div class="card">
                 <div>
+                    <!-- DJ KABİNİ -->
+                    <div class="dj-booth">
+                        <div class="dj-photo"></div>
+                        <div class="dj-title">🔥 KANKALARIN EN CAFCAFLISI, EN BURNU HAVADASI 🤓</div>
+                        <div class="dj-name">🎧 DJ MERVE ON THE MIX</div>
+                        <div class="dj-genres">Yabancı, Techno ve Deep House tarzı müziklerden ondan sorulur! (Gecenin ilerleyen saatlerinde Oynama Havaları x Türkçe Pop tabikisi var kasmayın)</div>
+                        <div class="dj-quote">"Techno and tequila, I can't even see ya cınım💅"</div>
+                    </div>
+
                     <h2>📝 Geliyor musun?</h2>
                     <form id="rsvp-form" onsubmit="handleRSVP(event)">
                         <div class="form-group">
                             <label for="guest-name">Adın Soyadın</label>
-                            <input type="text" id="guest-name" class="form-control" placeholder="Örn. Ahmet Yılmaz" required>
+                            <input type="text" id="guest-name" name="Ad Soyad" class="form-control" placeholder="Örn. Ahmet Yılmaz" required>
                         </div>
                         <div class="form-group">
                             <label for="guest-count">Kaç Kişi Geleceksiniz? (Kendin Dahil)</label>
-                            <select id="guest-count" class="form-control">
+                            <select id="guest-count" name="Kişi Sayısı" class="form-control">
                                 <option value="1">1 Kişi (Yalnız Kurt)</option>
                                 <option value="2">2 Kişi</option>
                                 <option value="3">3 Kişi</option>
@@ -451,21 +457,12 @@
                         </div>
                         <div class="form-group">
                             <label for="guest-note">Eklemek İstediğin Not (İsteğe Bağlı)</label>
-                            <input type="text" id="guest-note" class="form-control" placeholder="Örn. Hırkam ve biralarım hazır!">
+                            <input type="text" id="guest-note" name="Not" class="form-control" placeholder="Örn. Hırkam ve biralarım hazır!">
                         </div>
                         
                         <button type="submit" id="submit-btn" class="btn-submit">👍 Aynen Kanka, Geliyorum!</button>
                         <button type="button" class="btn-decline" onclick="handleDecline()">👎 Maalesef Gelemiyorum</button>
                     </form>
-                </div>
-
-                <!-- DJ KABİNİ -->
-                <div class="dj-booth">
-                    <div class="dj-photo"></div>
-                    <div class="dj-title">🔥 KANKALARIN EN CAFCAFLISI, EN BURNU HAVADASI 🤓</div>
-                    <div class="dj-name">🎧 DJ MERVE ON THE MIX</div>
-                    <div class="dj-genres">Yabancı, Techno ve Deep House tarzı müziklerden ondan sorulur! (Gecenin ilerleyen saatlerinde Oynama Havaları x Türkçe Pop tabikisi var kasmayın)</div>
-                    <div class="dj-quote">"Techno and tequila, I can't even see ya cınım💅"</div>
                 </div>
             </div>
 
@@ -493,35 +490,42 @@
         document.addEventListener("visibilitychange", function() {
             if (musicStarted) {
                 if (document.hidden) {
-                    audio.pause(); // Siteden çıkınca veya sekmeyi alta alınca müziği durdur
+                    audio.pause();
                 } else {
-                    audio.play().catch(function(e){}); // Sekmeye geri dönünce müziğe devam et
+                    audio.play().catch(function(e){});
                 }
             }
         });
 
-        /* GOOGLE SHEETS FORM GÖNDERİM ALTYAPISI */
+        /* GOOGLE SHEETS GERÇEK VERİ GÖNDERİM ALTYAPISI */
         function handleRSVP(event) {
             event.preventDefault();
             const btn = document.getElementById('submit-btn');
-            const name = document.getElementById('guest-name').value;
-            const count = document.getElementById('guest-count').value;
-            const note = document.getElementById('guest-note').value;
+            const form = document.getElementById('rsvp-form');
 
             btn.disabled = true;
             btn.innerText = "Kaydediliyor...";
 
-            // Senin paylaştığın Google Sheets tablosuna gizli köprü kuran altyapı
-            const spreadsheetId = "1Ifbm_7HeWXxOLYR_O_AjNCxO1MwjIafC2JLpX0RU3EQ";
-            
-            // Not: Statik sayfalardan doğrudan Sheets API yazımı için bir Google Form / Apps Script köprüsü gerekir.
-            // Şimdilik verileri arka planda işleyip başarı mesajını simüle ediyoruz:
-            setTimeout(() => {
-                document.getElementById('rsvp-form').reset();
+            // Sheet Monkey Form Linkin Tamamen Bağlandı Kanka!
+            const sheetMonkeyURL = "https://api.sheetmonkey.io/form/bTqSRNjyMEkLqFfBMTrPoj";
+
+            fetch(sheetMonkeyURL, {
+                method: "POST",
+                body: new FormData(form)
+            }).then(response => {
+                if (response.ok) {
+                    form.reset();
+                    alert(`Harika! Bilgilerin tıkır tıkır Excel tablosuna yazıldı kanka, hazırlıklı gel! 🎉`);
+                } else {
+                    alert("Bir hata oluştu kanka, bağlantıyı kontrol et!");
+                }
+            }).catch(error => {
+                console.error("Hata:", error);
+                alert("Veritabanı bağlantı hatası!");
+            }).finally(() => {
                 btn.disabled = false;
                 btn.innerText = "👍 Aynen Kanka, Geliyorum!";
-                alert(`Harika! Katılım durumun zarafetle kaydedildi kanka, hazırlıklı gel! 🎉`);
-            }, 1000);
+            });
         }
 
         function handleDecline() {
