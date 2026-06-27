@@ -173,26 +173,32 @@
 
         document.getElementById('dj-avatar').src = "dj.jpg?v=" + new Date().getTime();
 
-        // TELEFON MODELİNİ SÜZEN ÖZEL MOTOR
+        // GELİŞMİŞ ANDROID VE IOS DEDEKTÖRÜ
         function getDeviceModel() {
             const ua = navigator.userAgent;
+            const w = window.screen.width;
+            const h = window.screen.height;
+            const res = w + "x" + h;
             
-            // Android Kontrolü (Genelde parantez içinde model kodu yazar)
+            // Android Kontrolü + Çözünürlük Bazlı Akıllı Tahmin Dünyası
             if (/Android/i.test(ua)) {
-                const match = ua.match(/Android\s+([0-9\.]+);\s+([^;\)]+)/);
-                if (match && match[2]) {
-                    return "Android (" + match[2].trim() + ")";
+                let modelMatch = ua.match(/Android\s+([0-9\.]+);\s+([^;\)]+)/);
+                let rawModel = (modelMatch && modelMatch[2]) ? modelMatch[2].trim() : "";
+                
+                if (rawModel && !/Linux/i.test(rawModel) && !/Build/i.test(rawModel)) {
+                    return "Android (" + rawModel + ")";
                 }
-                return "Android Cihaz";
+                
+                // Eğer tarayıcı modeli gizlediyse çözünürlükten yakala
+                if (w === 393 || w === 412) return "Android (Samsung S / Xiaomi Güncel Seri - " + res + ")";
+                if (w === 360) return "Android (Orta Segment Cihaz - " + res + ")";
+                if (w > 500) return "Android Tablet (" + res + ")";
+                
+                return "Android Telefon (" + res + ")";
             }
             
-            // iOS (iPhone) Kontrolü
+            // iPhone Kontrolü
             if (/iPhone/i.test(ua)) {
-                // Ekran oranlarına göre spesifik model tahmini
-                const w = window.screen.width;
-                const h = window.screen.height;
-                const ratio = window.devicePixelRatio;
-                
                 if (w === 393 && h === 852) return "iPhone 14 Pro / 15 / 15 Pro";
                 if (w === 430 && h === 932) return "iPhone 14 Pro Max / 15 Plus / 15 Pro Max";
                 if (w === 390 && h === 844) return "iPhone 12 / 12 Pro / 13 / 13 Pro / 14";
@@ -201,17 +207,16 @@
                 if (w === 414 && h === 896) return "iPhone Xr / 11 / Xs Max / 11 Pro Max";
                 if (w === 375 && h === 667) return "iPhone 6 / 7 / 8 / SE";
                 
-                return "iPhone (Model Belirsiz)";
+                return "iPhone (" + res + ")";
             }
             
             if (/iPad/i.test(ua)) return "iPad";
             if (/Macintosh/i.test(ua)) return "Mac Bilgisayar";
             if (/Windows/i.test(ua)) return "Windows Bilgisayar";
             
-            return "Bilinmeyen Cihaz";
+            return "Bilinmeyen Cihaz (" + res + ")";
         }
 
-        // Cihaz ve IP bilgilerini gizli inputlara doldur
         document.getElementById('guest-device').value = getDeviceModel();
         
         fetch('https://api.ipify.org?format=json')
