@@ -64,12 +64,12 @@
         .btn-decline { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid #ff4a4a; color: #ff4a4a; padding: 10px; font-size: 0.9rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
         .btn-decline:hover { background: #ff4a4a; color: #fff; }
         
-        /* DJ SAHNESİ KABİNİ */
-        .dj-main-booth { margin-bottom: 40px; background: rgba(19, 26, 34, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 3px double #66fcf1; border-radius: 20px; padding: 35px 25px; text-align: center; box-shadow: 0 0 25px rgba(102,252,241,0.2); position: relative; display: block; width: 100%; z-index: 10; }
+        /* BÜYÜTÜLMÜŞ DJ SAHNESİ KABİNİ */
+        .dj-main-booth { margin-bottom: 40px; background: rgba(19, 26, 34, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 3px double #66fcf1; border-radius: 20px; padding: 50px 30px; text-align: center; box-shadow: 0 0 35px rgba(102,252,241,0.25); position: relative; display: block; width: 100%; z-index: 10; }
         .dj-main-booth::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #ff4a9f, #66fcf1, #ff4a9f); }
         
-        /* EN ÖN NESNE YAPILAN DJ FOTOĞRAFI KAPLAMASI */
-        .dj-img-wrapper { width: 160px; height: 160px; margin: 0 auto 15px auto; border-radius: 50%; border: 3px solid #66fcf1; overflow: hidden; box-shadow: 0 0 20px rgba(102, 252, 241, 0.6); background-color: #000; position: relative; z-index: 99999 !important; }
+        /* 220PX BOYUTUNDA EN ÖNDE DURAN GARANTİLİ DJ FOTOĞRAFI */
+        .dj-img-wrapper { width: 220px; height: 220px; margin: 0 auto 20px auto; border-radius: 50%; border: 4px solid #66fcf1; overflow: hidden; box-shadow: 0 0 25px rgba(102, 252, 241, 0.7); background-color: #000; position: relative; z-index: 99999 !important; }
         .dj-photo-large { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; position: relative !important; z-index: 99999 !important; }
         
         .dj-badge { background: #ff4a9f; color: #fff; font-size: 0.75rem; padding: 4px 12px; border-radius: 50px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; display: inline-block; margin-bottom: 10px; }
@@ -89,6 +89,7 @@
         <button class="play-btn" onclick="startParty()">Müziği Aç & Giriş Yap</button>
     </div>
 
+    <!-- ARKA PLAN GÖRSEL DUVARI -->
     <div class="fixed-bg-slider">
         <img src="1.jpg" class="hero-slider-img active" alt="Slayt 1">
         <img src="2.jpg" class="hero-slider-img" alt="Slayt 2">
@@ -98,8 +99,10 @@
         <div class="hero-overlay"></div>
     </div>
 
+    <!-- SCROLL EDEN ŞEFFAF SİTE İÇERİĞİ -->
     <div class="scrollable-content">
         
+        <!-- İLK EKRAN -->
         <div class="hero-section">
             <div class="hero-content">
                 <h1>İster Rahat Ol İster Şık!</h1>
@@ -113,9 +116,11 @@
             </div>
         </div>
 
+        <!-- KAYDIRINCA GELEN ŞEFFAF PANEL -->
         <div class="content-section" id="kayit-alani">
             <div class="content-container">
                 
+                <!-- DJ ALANI -->
                 <div class="dj-main-booth">
                     <div class="dj-img-wrapper">
                         <img id="dj-avatar" src="dj.jpg" alt="DJ Merve" class="dj-photo-large">
@@ -138,6 +143,7 @@
                                 ⚠️ Akşamları buralar güzel eser, soğuk olur unutma! Mekan açık/bahçe konseptli olduğu için topuklu ayakkabı zor olabilir, dikkat kızlarrr! Yanınıza mutlaka hırka veya mont alın.
                             </div>
                         </div>
+                        <!-- VERDİĞİN TAM VE NOKTA ATIŞI NET KOORDİNAT HARİTASI -->
                         <iframe class="map-placeholder" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1529.2831828350125!2d30.4191259!3d39.7838099!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ3JzAxLjciTiAzMMKwMjUnMDguOSJF!5e0!3m2!1str!2str!4v1719525000000!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
