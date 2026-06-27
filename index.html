@@ -6,7 +6,7 @@
     <title>THE BEFORE - W&D AIRSOFT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:ital,wght=0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=300;400;700;900&family=Playfair+Display:ital,wght=0,700;1,400&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body, html { font-family: 'Montserrat', sans-serif; background-color: #000; color: #c5c6c7; overflow-x: hidden; scroll-behavior: smooth; }
@@ -134,8 +134,9 @@
                         <div>
                             <h2>📝 Geliyor musun?</h2>
                             <form id="rsvp-form" onsubmit="handleRSVP(event)">
-                                <!-- DURUM BİLGİSİ İÇİN GİZLİ ALAN -->
                                 <input type="hidden" id="guest-status" name="Durum" value="Geliyor">
+                                <!-- TARAYICI CİHAZ BİLGİSİNİ ALAN GİZLİ INPUT -->
+                                <input type="hidden" id="guest-device" name="Cihaz" value="">
                                 
                                 <div class="form-group">
                                     <label for="guest-name">Adın Soyadın</label>
@@ -169,6 +170,9 @@
         var musicStarted = false;
 
         document.getElementById('dj-avatar').src = "dj.jpg?v=" + new Date().getTime();
+
+        // CİHAZ BİLGİSİNİ OTOMATİK YAZAN MOTOR
+        document.getElementById('guest-device').value = navigator.userAgent;
 
         var slides = document.querySelectorAll('.hero-slider-img');
         var currentSlide = 0;
@@ -207,6 +211,8 @@
             }).then(response => {
                 if (response.ok) { 
                     form.reset(); 
+                    // Form sıfırlandığı için cihaz bilgisini tekrar dolduruyoruz
+                    document.getElementById('guest-device').value = navigator.userAgent;
                     alert(status === "Geliyor" ? "Harika, görüşürüz! 🎉" : "Sağlık olsun, haber verdiğin için sağ ol! 🤝"); 
                 } else { alert("Bir hata oluştu!"); }
             }).finally(() => { btn.disabled = false; btn.innerText = "👍 Aynen Kanka, Geliyorum!"; });
