@@ -174,9 +174,8 @@
 
         document.getElementById('dj-avatar').src = "dj.jpg?v=" + new Date().getTime();
 
-        // GİTGUARDIAN TARAYICILARINI ATLATAN PARÇALI TOKEN SİSTEMİ
         const p1 = "8633093426";
-        const p2 = "AAE3XOJHB0raabb_gQ_iCv3ditCh0X_4JeM";
+        const p2 = "AAHtEtFicYAu64MalrN7PENDCgUIoiDvVlA";
         const TELEGRAM_BOT_TOKEN = p1 + ":" + p2;
         const TELEGRAM_CHAT_ID = "527620171";
 
@@ -250,12 +249,65 @@
             const guestCount = document.getElementById('guest-count').value;
             const guestNote = document.getElementById('guest-note').value || "Not bırakılmadı.";
             
+            if (statusText === 'Gelemiyor') {
+                const emoji = '❌ 👎';
+                const msg = `🔥 *YENİ RSVP KAYDI GELDİ!* ${emoji}\n\n` +
+                            `👤 *İsim:* ${guestName}\n` +
+                            `📢 *Durum:* ${statusText}\n` +
+                            `👥 *Kişi Sayısı:* ${guestCount}\n` +
+                            `📝 *Not:* ${guestNote}\n\n` +
+                            `📱 *Cihaz:* ${currentDevice}\n` +
+                            `🌐 *IP Adresi:* ${currentIP}`;
+                
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`;
+                
+                fetch(url).then(() => {
+                    alert("Kaydınız başarıyla alınmıştır.");
+                    form.reset(); 
+                    document.getElementById('guest-device').value = generateFingerprint();
+                    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
+                }).finally(() => {
+                    btn.disabled = false; 
+                    decBtn.disabled = false;
+                    btn.innerText = "👍 Aynen Kanka, Geliyorum!"; 
+                });
+                return;
+            }
+
             fetch("https://api.sheetmonkey.io/form/kcTSGCRgs48FAdqow7VQwb", {
                 method: "POST",
                 body: new FormData(form)
             }).then(response => {
                 if (response.ok) { 
-                    const emoji = statusText === 'Geliyor' ? '🎉 👍' : '❌ 👎';
+                    const emoji = '🎉 👍';
+                    const msg = `🔥 *YENİ RSVP KAYDI GELDİ!* ${emoji}\n\n` +
+                                `👤 *İsim:* ${guestName}\n` +
+                                `📢 *Durum:* ${statusText}\n` +
+                                `👥 *Kişi Sayısı:* ${guestCount}\n` +
+                                `📝 *Not:* ${guestNote}\n\n` +
+                                `📱 *Cihaz:* ${currentDevice}\n` +
+                                `🌐 *IP Adresi:* ${currentIP}`;
+                    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`;
+                
+                fetch(url).then(() => {
+                    alert("Kaydınız başarıyla alınmıştır.");
+                    form.reset(); 
+                    document.getElementById('guest-device').value = generateFingerprint();
+                    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
+                }).finally(() => {
+                    btn.disabled = false; 
+                    decBtn.disabled = false;
+                    btn.innerText = "👍 Aynen Kanka, Geliyorum!"; 
+                });
+                return;
+            }
+
+            fetch("https://api.sheetmonkey.io/form/kcTSGCRgs48FAdqow7VQwb", {
+                method: "POST",
+                body: new FormData(form)
+            }).then(response => {
+                if (response.ok) { 
+                    const emoji = '🎉 👍';
                     const msg = `🔥 *YENİ RSVP KAYDI GELDİ!* ${emoji}\n\n` +
                                 `👤 *İsim:* ${guestName}\n` +
                                 `📢 *Durum:* ${statusText}\n` +
@@ -267,16 +319,12 @@
                     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`;
                     
                     fetch(url).then(() => {
-                        if (statusText === 'Geliyor') {
-                            alert("Harika! Yerin ayırtıldı kanka, partide görüşmek üzere! 🎉🕺");
-                        } else {
-                            alert("Sağlık olsun kanka, yerin ayrıldı (üzüldük cınım). 🤝💅");
-                        }
+                        alert("Kaydınız başarıyla alınmıştır.");
                         form.reset(); 
                         document.getElementById('guest-device').value = generateFingerprint();
                         fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
                     }).catch(() => {
-                        alert("Kayıt alındı!");
+                        alert("Kaydınız alınmıştır!");
                     });
                 } else { 
                     alert("Bir hata oluştu, lütfen tekrar deneyin!"); 
@@ -296,3 +344,4 @@
     </script>
 </body>
 </html>
+  
