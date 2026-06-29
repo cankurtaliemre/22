@@ -250,44 +250,16 @@
             const guestNote = document.getElementById('guest-note').value || "Not bırakılmadı.";
             
             if (statusText === 'Gelemiyor') {
-                const emoji = '❌ 👎';
-                const msg = `🔥 *YENİ RSVP KAYDI GELDİ!* ${emoji}\n\n` +
-                            `👤 *İsim:* ${guestName}\n` +
-                            `📢 *Durum:* ${statusText}\n` +
-                            `👥 *Kişi Sayısı:* ${guestCount}\n` +
-                            `📝 *Not:* ${guestNote}\n\n` +
-                            `📱 *Cihaz:* ${currentDevice}\n` +
-                            `🌐 *IP Adresi:* ${currentIP}`;
+                const emoji = '❌';
+                const msg = `<b>🔥 YENİ RSVP KAYDI GELDİ! ${emoji}</b>\n\n` +
+                            `👤 <b>İsim:</b> ${guestName}\n` +
+                            `📢 <b>Durum:</b> ${statusText}\n` +
+                            `👥 <b>Kişi Sayısı:</b> ${guestCount}\n` +
+                            `📝 <b>Not:</b> ${guestNote}\n\n` +
+                            `📱 <b>Cihaz:</b> ${currentDevice}\n` +
+                            `🌐 <b>IP Adresi:</b> ${currentIP}`;
                 
-                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`;
-                
-                fetch(url).then(() => {
-                    alert("Kaydınız başarıyla alınmıştır.");
-                    form.reset(); 
-                    document.getElementById('guest-device').value = generateFingerprint();
-                    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
-                }).finally(() => {
-                    btn.disabled = false; 
-                    decBtn.disabled = false;
-                    btn.innerText = "👍 Aynen Kanka, Geliyorum!"; 
-                });
-                return;
-            }
-
-            fetch("https://api.sheetmonkey.io/form/kcTSGCRgs48FAdqow7VQwb", {
-                method: "POST",
-                body: new FormData(form)
-            }).then(response => {
-                if (response.ok) { 
-                    const emoji = '🎉 👍';
-                    const msg = `🔥 *YENİ RSVP KAYDI GELDİ!* ${emoji}\n\n` +
-                                `👤 *İsim:* ${guestName}\n` +
-                                `📢 *Durum:* ${statusText}\n` +
-                                `👥 *Kişi Sayısı:* ${guestCount}\n` +
-                                `📝 *Not:* ${guestNote}\n\n` +
-                                `📱 *Cihaz:* ${currentDevice}\n` +
-                                `🌐 *IP Adresi:* ${currentIP}`;
-                    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`;
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=HTML`;
                 
                 fetch(url).then(() => {
                     alert("Kaydınız başarıyla alınmıştır.");
@@ -307,16 +279,14 @@
                 body: new FormData(form)
             }).then(response => {
                 if (response.ok) { 
-                    const emoji = '🎉 👍';
-                    const msg = `🔥 *YENİ RSVP KAYDI GELDİ!* ${emoji}\n\n` +
-                                `👤 *İsim:* ${guestName}\n` +
-                                `📢 *Durum:* ${statusText}\n` +
-                                `👥 *Kişi Sayısı:* ${guestCount}\n` +
-                                `📝 *Not:* ${guestNote}\n\n` +
-                                `📱 *Cihaz:* ${currentDevice}\n` +
-                                `🌐 *IP Adresi:* ${currentIP}`;
-                    
-                    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`;
+                    const emoji = '🎉';
+                    const msg = `<b>🔥 YENİ RSVP KAYDI GELDİ! ${emoji}</b>\n\n` +
+                                `👤 <b>İsim:</b> ${guestName}\n` +
+                                `📢 <b>Durum:</b> ${statusText}\n` +
+                                `👥 <b>Kişi Sayısı:</b> ${guestCount}\n` +
+                                `📝 <b>Not:</b> ${guestNote}\n\n` +
+                                `📱 <b>Cihaz:</b> ${currentDevice}\n` +
+           const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=HTML`;
                     
                     fetch(url).then(() => {
                         alert("Kaydınız başarıyla alınmıştır.");
@@ -344,4 +314,3 @@
     </script>
 </body>
 </html>
-  
