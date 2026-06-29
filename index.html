@@ -127,7 +127,6 @@
                             <div class="info-item">⏰ <strong>Saat:</strong> 20:00 İtibariyle</div>
                             <div class="info-item">🏡 <strong>Adres:</strong> Karagözler Mah., Tepebaşı / Eskişehir</div>
                         </div>
-                        <!-- SENİN VERDİĞİN KUSURSUZ RESMİ GOOGLE EMBED KODU -->
                         <iframe class="map-placeholder" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3066.0332140597225!2d30.416617877826294!3d39.78380999391501!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cc113c7d8c818d%3A0xa9c5c36295f06473!2sW%26D%20Airsoft%20Arena!5e0!3m2!1str!2str!4v1782619613065!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                     </div>
 
@@ -173,6 +172,10 @@
         var musicStarted = false;
 
         document.getElementById('dj-avatar').src = "dj.jpg?v=" + new Date().getTime();
+
+        // TELEGRAM ENTEGRASYON SİSTEMİ
+        const TELEGRAM_BOT_TOKEN = "8633093426:AAE3XOJHB0raabb_gQ_iCv3ditCh0X_4JeM";
+        const TELEGRAM_CHAT_ID = "527620171";
 
         function generateFingerprint() {
             let id = localStorage.getItem('party_device_token');
@@ -239,17 +242,42 @@
             btn.disabled = true;
             decBtn.disabled = true;
             btn.innerText = "Kaydediliyor...";
+
+            const currentDevice = document.getElementById('guest-device').value;
+            const currentIP = document.getElementById('guest-ip').value;
+            const guestName = document.getElementById('guest-name').value;
+            const guestCount = document.getElementById('guest-count').value;
+            const guestNote = document.getElementById('guest-note').value || "Not bırakılmadı.";
             
+            // 1. Önce SheetMonkey ile Excel'e Basıyoruz
             fetch("https://api.sheetmonkey.io/form/kcTSGCRgs48FAdqow7VQwb", {
                 method: "POST",
                 body: new FormData(form)
             }).then(response => {
                 if (response.ok) { 
-                    form.reset(); 
-                    document.getElementById('guest-device').value = generateFingerprint();
-                    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
-                    alert(statusText === 'Geliyor' ? "Harika! Bilgilerin Excel tablosuna yazıldı kanka! 🎉" : "Sağlık olsun kanka, gelemediğin Excel'e işlendi. 🤝");
-                } else { alert("Bir hata oluştu!"); }
+                    // 2. Excel Başarılıysa Hemen Telegram'a Bildirim Atıyoruz
+                    const emoji = statusText === 'Geliyor' ? '🎉 👍' : '❌ 👎';
+                    const msg = `🔥 *YENİ RSVP KAYDI GELDİ!* ${emoji}\n\n` +
+                                `👤 *İsim:* ${guestName}\n` +
+                                `📢 *Durum:* ${statusText}\n` +
+                                `👥 *Kişi Sayısı:* ${guestCount}\n` +
+                                `📝 *Not:* ${guestNote}\n\n` +
+                                `📱 *Cihaz:* ${currentDevice}\n` +
+                                `🌐 *IP Adresi:* ${currentIP}`;
+                    
+                    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`;
+                    
+                    fetch(url).then(() => {
+                        alert(statusText === 'Geliyor' ? "Harika! Bilgilerin Excel'e yazıldı ve Telegram'a uçuruldu kanka! 🎉" : "Sağlık olsun kanka, gelemediğin Telegram ve Excel'e işlendi. 🤝");
+                        form.reset(); 
+                        document.getElementById('guest-device').value = generateFingerprint();
+                        fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
+                    }).catch(() => {
+                        alert("Kayıt yapıldı ama Telegram bildirimi gönderilemedi!");
+                    });
+                } else { 
+                    alert("Excel kaydı sırasında bir hata oluştu!"); 
+                }
             }).finally(() => { 
                 btn.disabled = false; 
                 decBtn.disabled = false;
@@ -259,7 +287,7 @@
 
         function handleDecline(event) {
             const name = document.getElementById('guest-name').value;
-            if(!name) { alert("İsmini yaz kanka, kim gelemiyor Excel'e kaydedelim :)"); return; }
+            if(!name) { alert("İsmini yaz kanka, kim gelemiyor bildirelim :)"); return; }
             handleRSVP(null, 'Gelemiyor');
         }
     </script>
