@@ -174,11 +174,6 @@
 
         document.getElementById('dj-avatar').src = "dj.jpg?v=" + new Date().getTime();
 
-        const p1 = "8633093426";
-        const p2 = "AAHtEtFicYAu64MalrN7PENDCgUIoiDvVlA";
-        const TELEGRAM_BOT_TOKEN = p1 + ":" + p2;
-        const TELEGRAM_CHAT_ID = "527620171";
-
         function generateFingerprint() {
             let id = localStorage.getItem('party_device_token');
             if (!id) {
@@ -243,34 +238,14 @@
             decBtn.disabled = true;
             btn.innerText = "Kaydediliyor...";
 
-            const currentDevice = document.getElementById('guest-device').value;
-            const currentIP = document.getElementById('guest-ip').value;
-            const guestName = document.getElementById('guest-name').value;
-            const guestCount = document.getElementById('guest-count').value;
-            const guestNote = document.getElementById('guest-note').value || "Not bırakılmadı.";
-            
             if (statusText === 'Gelemiyor') {
-                const emoji = '❌';
-                const msg = `<b>🔥 YENİ RSVP KAYDI GELDİ! ${emoji}</b>\n\n` +
-                            `👤 <b>İsim:</b> ${guestName}\n` +
-                            `📢 <b>Durum:</b> ${statusText}\n` +
-                            `👥 <b>Kişi Sayısı:</b> ${guestCount}\n` +
-                            `📝 <b>Not:</b> ${guestNote}\n\n` +
-                            `📱 <b>Cihaz:</b> ${currentDevice}\n` +
-                            `🌐 <b>IP Adresi:</b> ${currentIP}`;
-                
-                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=HTML`;
-                
-                fetch(url).then(() => {
-                    alert("Kaydınız başarıyla alınmıştır.");
-                    form.reset(); 
-                    document.getElementById('guest-device').value = generateFingerprint();
-                    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
-                }).finally(() => {
-                    btn.disabled = false; 
-                    decBtn.disabled = false;
-                    btn.innerText = "👍 Aynen Kanka, Geliyorum!"; 
-                });
+                alert("Kaydınız başarıyla alınmıştır.");
+                form.reset(); 
+                document.getElementById('guest-device').value = generateFingerprint();
+                fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
+                btn.disabled = false; 
+                decBtn.disabled = false;
+                btn.innerText = "👍 Aynen Kanka, Geliyorum!"; 
                 return;
             }
 
@@ -279,23 +254,10 @@
                 body: new FormData(form)
             }).then(response => {
                 if (response.ok) { 
-                    const emoji = '🎉';
-                    const msg = `<b>🔥 YENİ RSVP KAYDI GELDİ! ${emoji}</b>\n\n` +
-                                `👤 <b>İsim:</b> ${guestName}\n` +
-                                `📢 <b>Durum:</b> ${statusText}\n` +
-                                `👥 <b>Kişi Sayısı:</b> ${guestCount}\n` +
-                                `📝 <b>Not:</b> ${guestNote}\n\n` +
-                                `📱 <b>Cihaz:</b> ${currentDevice}\n` +
-           const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}&parse_mode=HTML`;
-                    
-                    fetch(url).then(() => {
-                        alert("Kaydınız başarıyla alınmıştır.");
-                        form.reset(); 
-                        document.getElementById('guest-device').value = generateFingerprint();
-                        fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
-                    }).catch(() => {
-                        alert("Kaydınız alınmıştır!");
-                    });
+                    alert("Kaydınız başarıyla alınmıştır.");
+                    form.reset(); 
+                    document.getElementById('guest-device').value = generateFingerprint();
+                    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => document.getElementById('guest-ip').value = d.ip).catch(() => {});
                 } else { 
                     alert("Bir hata oluştu, lütfen tekrar deneyin!"); 
                 }
